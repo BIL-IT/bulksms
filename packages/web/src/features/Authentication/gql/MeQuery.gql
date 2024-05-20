@@ -1,0 +1,9 @@
+query Me {
+  Me {
+    sub
+    email
+    username
+    role
+    lastLoggedIn
+  }
+}

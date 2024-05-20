@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Sms" ALTER COLUMN "status" DROP NOT NULL;

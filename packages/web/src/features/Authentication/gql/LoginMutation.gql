@@ -1,0 +1,5 @@
+mutation Login($loginDetails: LoginDetails!) {
+  Login(loginDetails: $loginDetails) {
+    message
+  }
+}

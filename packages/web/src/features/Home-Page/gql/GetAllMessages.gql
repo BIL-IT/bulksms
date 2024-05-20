@@ -1,0 +1,9 @@
+query GetAllSMS {
+  GetAllSMS {
+    id
+    time
+    phone
+    status
+    content
+  }
+}
