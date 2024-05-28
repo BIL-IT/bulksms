@@ -8,6 +8,7 @@ import { CurrentUserDetail } from './output/current-user.model';
 import { CurrentUser } from './curret-user.decorator';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
+// import { z } from 'zod';
 
 @Resolver()
 export class AuthResolver {
@@ -15,9 +16,9 @@ export class AuthResolver {
 
   @UseGuards(AuthGuard)
   @Query(() => CurrentUserDetail)
-  async Me(@CurrentUser() { user }): Promise<CurrentUserDetail> {
-    // console.log(user);
-
+  async Me(
+    @CurrentUser() { user }: { user: CurrentUserDetail },
+  ): Promise<CurrentUserDetail> {
     // return {
     //   email: user.user.email,
     //   sub: user.user.sub,
@@ -39,8 +40,9 @@ export class AuthResolver {
     );
 
     res.cookie('auth', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 3.6e6,
+      sameSite: 'none',
       secure: true,
     });
 
@@ -59,8 +61,9 @@ export class AuthResolver {
     );
 
     res.cookie('auth', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 3.6e6,
+      sameSite: 'none',
       secure: true,
     });
 

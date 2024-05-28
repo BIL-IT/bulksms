@@ -26,6 +26,7 @@ enum Role {
 model Sms {
   id      String   @id
   time    DateTime @default(now())
+  sender  String   @default("System")
   phone   String
   content String
   status  String?

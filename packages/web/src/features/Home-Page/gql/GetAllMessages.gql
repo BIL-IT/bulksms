@@ -2,6 +2,7 @@ query GetAllSMS {
   GetAllSMS {
     id
     time
+    sender
     phone
     status
     content

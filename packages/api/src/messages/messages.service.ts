@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AllMessages } from './output/all-messages.model';
+import { SmsClientService } from 'src/sms-client/sms-client.service';
+
+// http://172.16.16.105:13013/cgi-bin/sendsms?username=sms&password=sms123&to=77360762&from=BIL&text=testing
 
 @Injectable()
 export class MessagesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private smsClient: SmsClientService,
+  ) {}
 
   async GetAllSMS(): Promise<AllMessages[]> {
     const messages = await this.prisma.sms.findMany({
@@ -18,29 +24,56 @@ export class MessagesService {
     return messages;
   }
 
-  async SendSMS(phoneNumbers: string[], content: string): Promise<string> {
+  async SendSMS(
+    phoneNumbers: string[],
+    message: string,
+    sender: string,
+  ): Promise<string> {
     for (const phoneNumber of phoneNumbers) {
       const number = phoneNumber.trim();
       const regNumber = /^(^\+975|^975|^0)?([ -])?(1|7)(7)\d{6}$/;
+      const acceptedNumber = regNumber.test(number)
+        ? number.substring(number.length - 8, number.length)
+        : number;
+
       const id = crypto.randomUUID();
       if (!id) throw new Error('ID Uninitialized');
-      const message = await this.prisma.sms.create({
+
+      if (!regNumber.test(number)) {
+        await this.prisma.sms.update({
+          where: {
+            id,
+          },
+          data: {
+            status: 'Invalid Format',
+          },
+        });
+
+        continue;
+      }
+
+      const { content, status } = await this.smsClient.sendMessage(
+        'BIL',
+        acceptedNumber,
+        message,
+      );
+
+      await this.prisma.sms.create({
         data: {
           id,
-          content,
-          phone: regNumber.test(number)
-            ? number.substring(number.length - 8, number.length)
-            : number,
+          content: content,
+          phone: acceptedNumber,
+          sender,
         },
       });
 
-      if (message) {
+      if (status) {
         await this.prisma.sms.update({
           where: {
             id: id!,
           },
           data: {
-            status: 'Success',
+            status,
           },
         });
       } else {
@@ -50,17 +83,6 @@ export class MessagesService {
           },
           data: {
             status: 'Failed',
-          },
-        });
-      }
-
-      if (!regNumber.test(number)) {
-        await this.prisma.sms.update({
-          where: {
-            id,
-          },
-          data: {
-            status: 'Invalid Format',
           },
         });
       }

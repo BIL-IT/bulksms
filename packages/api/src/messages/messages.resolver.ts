@@ -5,6 +5,8 @@ import { SuccessMessageInput } from './output/success-message.model';
 import { AllMessages } from './output/all-messages.model';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CurrentUserDetail } from 'src/auth/output/current-user.model';
+import { CurrentUser } from 'src/auth/curret-user.decorator';
 
 @UseGuards(AuthGuard)
 @Resolver()
@@ -18,13 +20,16 @@ export class MessagesResolver {
     return messages;
   }
 
+  @UseGuards(AuthGuard)
   @Mutation(() => SuccessMessageInput)
   async SendSMS(
     @Args('messageInput') messageInput: MessageInput,
+    @CurrentUser() { user }: { user: CurrentUserDetail },
   ): Promise<SuccessMessageInput> {
     const message = await this.messagesService.SendSMS(
       messageInput.phone,
       messageInput.content,
+      user.username,
     );
 
     return {

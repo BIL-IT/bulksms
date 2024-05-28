@@ -17,8 +17,6 @@ export default function HomePageComponent() {
 
   const { data, loading, error } = useGetAllSmsQuery();
 
-  data?.GetAllSMS;
-
   if (meLoading) return;
 
   if (!meData?.Me) router.push("/login");

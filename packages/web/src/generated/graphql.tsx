@@ -23,6 +23,7 @@ export type AllMessages = {
   content: Scalars['String']['output'];
   id: Scalars['String']['output'];
   phone: Scalars['String']['output'];
+  sender: Scalars['String']['output'];
   status: Scalars['String']['output'];
   time: Scalars['DateTime']['output'];
 };
@@ -123,7 +124,7 @@ export type SignUpMutation = { __typename?: 'Mutation', SignUp: { __typename?: '
 export type GetAllSmsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllSmsQuery = { __typename?: 'Query', GetAllSMS: Array<{ __typename?: 'AllMessages', id: string, time: any, phone: string, status: string, content: string }> };
+export type GetAllSmsQuery = { __typename?: 'Query', GetAllSMS: Array<{ __typename?: 'AllMessages', id: string, time: any, sender: string, phone: string, status: string, content: string }> };
 
 export type SendSmsMutationVariables = Exact<{
   messageInput: MessageInput;
@@ -279,6 +280,7 @@ export const GetAllSmsDocument = gql`
   GetAllSMS {
     id
     time
+    sender
     phone
     status
     content

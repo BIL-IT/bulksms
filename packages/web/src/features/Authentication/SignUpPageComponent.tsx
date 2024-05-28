@@ -1,27 +1,49 @@
+import ErrorLabel from "@/components/errorLabel";
 import { Button } from "@/components/ui/button";
 import { useSignUpMutation } from "@/generated/graphql";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-export default function SingUpPageComponent() {
-  const [userDetail, setUserDetail] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+const signUpSchema = z.object({
+  username: z.string().min(1, {
+    message: "Username cannot be empty",
+  }),
+  email: z.string().email(),
+  password: z.string().min(1, {
+    message: "Password cannot be empty",
+  }),
+  confirmPassword: z.string().min(1, {
+    message: "Field cannot be empty",
+  }),
+});
+
+export default function SignUpPageComponent() {
+  const router = useRouter();
+
+  const {
+    register,
+    watch,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    mode: "all",
   });
 
-  const router = useRouter();
+  watch(["password", "confirmPassword"]);
 
   const [signUpMutation, { loading: signUpLoading, error: signUpError }] =
     useSignUpMutation();
 
-  function formHandler(event: React.FormEvent) {
-    event.preventDefault();
-    const { confirmPassword, ...finalDetails } = userDetail;
+  function formHandler(data: z.infer<typeof signUpSchema>) {
+    const { confirmPassword, ...finalDetails } = data;
     signUpMutation({
       variables: {
         signupDetails: finalDetails,
@@ -30,82 +52,68 @@ export default function SingUpPageComponent() {
   }
 
   return (
-    <div className="h-screen grid place-content-center">
+    <div className="min-h-screen grid place-content-center">
       <Head>
         <title>Sign Up</title>
       </Head>
       <form
-        onSubmit={formHandler}
-        className="w-[500px] h-fit flex flex-col gap-5 p-10 shadow-gray-600 shadow rounded"
+        onSubmit={handleSubmit(formHandler)}
+        className="w-[500px] my-10 h-fit flex flex-col gap-5 p-10 shadow-gray-600 shadow rounded"
       >
         <h1 className="text-3xl mb-3 font-bold">Sign Up</h1>
         <label>
           <p>Email</p>
           <input
-            value={userDetail.email}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, email: e.target.value })
-            }
-            type="email"
-            required
+            {...register("email")}
             className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
           />
+          {errors.email && <ErrorLabel>{errors.email.message}</ErrorLabel>}
         </label>
         <label>
           <p>Username</p>
           <input
-            minLength={5}
-            value={userDetail.username}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, username: e.target.value })
-            }
-            type="text"
-            required
+            {...register("username")}
             className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
           />
+          {errors.username && (
+            <ErrorLabel>{errors.username.message}</ErrorLabel>
+          )}
         </label>
         <label>
           <p>Password</p>
           <input
-            value={userDetail.password}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, password: e.target.value })
-            }
+            {...register("password")}
             type="password"
-            required
             className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
           />
+          {errors.password && (
+            <ErrorLabel>{errors.password.message}</ErrorLabel>
+          )}
         </label>
         <label>
           <p>Confirm Password</p>
           <input
-            value={userDetail.confirmPassword}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, confirmPassword: e.target.value })
-            }
+            {...register("confirmPassword")}
             type="password"
-            required
             className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC] decoration-none"
           />
-          {userDetail.confirmPassword &&
-            userDetail.confirmPassword !== userDetail.password && (
-              <p className="text-xs text-red-500">
-                Password doesn&apos;t match
-              </p>
+          {errors.confirmPassword && (
+            <ErrorLabel>{errors.confirmPassword.message}</ErrorLabel>
+          )}
+          {!!getValues("confirmPassword") &&
+            getValues("password") !== getValues("confirmPassword") && (
+              <ErrorLabel>Password doesn&apos;t match</ErrorLabel>
             )}
         </label>
         <Button
           disabled={
             signUpLoading ||
-            !userDetail.email ||
-            !userDetail.username ||
-            !userDetail.password ||
-            userDetail.password !== userDetail.confirmPassword
+            getValues("password") !== getValues("confirmPassword")
           }
           type="submit"
           className="mt-4 py-7"
         >
-          {signUpLoading ? <Loader2 /> : "Submit"}
+          {signUpLoading ? <Loader2 className="animate-spin" /> : "Submit"}
         </Button>
         {signUpError && (
           <p className="text-red-500 text-center">{signUpError.message}</p>

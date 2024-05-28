@@ -9,6 +9,9 @@ export class AllMessages {
   time: Date;
 
   @Field()
+  sender: string;
+
+  @Field()
   phone: string;
 
   @Field()

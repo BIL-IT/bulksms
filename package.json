@@ -10,5 +10,8 @@
   "scripts": {
     "start:client": "yarn workspace @packages/web dev",
     "start:server": "yarn workspace @packages/api start:dev"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
   }
 }

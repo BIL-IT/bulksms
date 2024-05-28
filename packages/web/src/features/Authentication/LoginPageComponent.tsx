@@ -3,13 +3,33 @@ import { useLoginMutation, useMeQuery } from "@/generated/graphql";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorLabel from "@/components/errorLabel";
+import * as Lucide from "lucide-react";
+
+const loginSchema = z.object({
+  emailOrUsername: z.string().min(1, {
+    message: "Email or Username cannot be empty",
+  }),
+  password: z.string().min(1, {
+    message: "Password cannot be empty",
+  }),
+});
 
 export default function LoginPageComponent() {
-  const [userDetail, setUserDetail] = useState({
-    emailOrUsername: "",
-    password: "",
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    mode: "all",
   });
 
   const {
@@ -28,11 +48,10 @@ export default function LoginPageComponent() {
     router.push("/");
   }
 
-  function formHandler(event: React.FormEvent) {
-    event.preventDefault();
+  function formHandler(data: z.infer<typeof loginSchema>) {
     loginMutation({
       variables: {
-        loginDetails: userDetail,
+        loginDetails: data,
       },
     }).then(() => router.push("/").then(() => meRefetch()));
   }
@@ -43,41 +62,41 @@ export default function LoginPageComponent() {
         <title>Login</title>
       </Head>
       <form
-        onSubmit={formHandler}
+        onSubmit={handleSubmit((data) => formHandler(data))}
         className="w-[500px] h-fit flex flex-col gap-5 p-10 shadow-gray-600 shadow rounded"
       >
         <h1 className="text-3xl mb-3 font-bold">Login</h1>
         <label>
           <p>Username or Email</p>
           <input
-            value={userDetail.emailOrUsername}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, emailOrUsername: e.target.value })
-            }
+            {...register("emailOrUsername")}
             type="text"
-            required
             className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
           />
+          {errors.emailOrUsername && (
+            <ErrorLabel>{errors.emailOrUsername.message}</ErrorLabel>
+          )}
         </label>
-        <label>
+        <div>
           <p>Password</p>
-          <input
-            value={userDetail.password}
-            onChange={(e) =>
-              setUserDetail({ ...userDetail, password: e.target.value })
-            }
-            type="password"
-            required
-            className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
-          />
-        </label>
-        <Button
-          disabled={
-            loginLoading || !userDetail.emailOrUsername || !userDetail.password
-          }
-          type="submit"
-          className="mt-4 py-7"
-        >
+          <span className="border rounded outline-none flex py-3 items-center px-5 w-full gap-2 mt-3 border-[#CCC]">
+            <input
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
+              className="outline-none flex-1"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <Lucide.EyeOff /> : <Lucide.Eye />}
+            </button>
+          </span>
+          {errors.password && (
+            <ErrorLabel>{errors.password.message}</ErrorLabel>
+          )}
+        </div>
+        <Button disabled={loginLoading} type="submit" className="mt-4 py-7">
           {loginLoading ? <Loader2 className="animate-spin" /> : "Submit"}
         </Button>
         {loginError && (

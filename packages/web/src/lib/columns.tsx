@@ -35,6 +35,24 @@ export const columns: ColumnDef<Message>[] = [
     },
   },
   {
+    accessorKey: "sender",
+    header: ({ column }) => {
+      return (
+        <div
+          className="flex items-center gap-1 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Sender
+          {column.getIsSorted() === "asc" ? (
+            <ArrowDown />
+          ) : column.getIsSorted() === "desc" ? (
+            <ArrowUp />
+          ) : null}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "phone",
     header: ({ column }) => {
       return (
@@ -79,19 +97,19 @@ export const columns: ColumnDef<Message>[] = [
     accessorKey: "status",
     header: "Status",
   },
-  {
-    accessorKey: "pdf",
-    header(props) {
-      return;
-    },
-    cell(props) {
-      return (
-        <Button
-          onClick={() => console.log(props.row.getVisibleCells()[0].getValue())}
-        >
-          Print PDF
-        </Button>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "pdf",
+  //   header(props) {
+  //     return;
+  //   },
+  //   cell(props) {
+  //     return (
+  //       <Button
+  //         onClick={() => console.log(props.row.getVisibleCells()[0].getValue())}
+  //       >
+  //         Print PDF
+  //       </Button>
+  //     );
+  //   },
+  // },
 ];
