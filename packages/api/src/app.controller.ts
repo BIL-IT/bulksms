@@ -15,10 +15,10 @@ export class AppController {
     return { ...req.query };
   }
 
-  @Get('/dlr')
-  getReport(@Req() req: Request) {
-    console.log(req.query);
+  // @Get('')
+  // getReport(@Req() req: Request) {
+  //   console.log(req.query);
 
-    return { ...req.query };
-  }
+  //   return { ...req.query };
+  // }
 }

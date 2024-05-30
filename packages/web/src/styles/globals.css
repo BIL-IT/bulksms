@@ -108,3 +108,17 @@ nextjs-portal {
     opacity: 100%;
   }
 }
+
+.button-spin {
+  animation: spinOnce linear 500ms;
+}
+
+@keyframes spinOnce {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}

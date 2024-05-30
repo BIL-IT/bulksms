@@ -58,30 +58,13 @@ export class MessagesService {
         message,
       );
 
-      await this.prisma.sms.create({
-        data: {
-          id,
-          content: content,
-          phone: acceptedNumber,
-          sender,
-        },
-      });
-
-      if (status) {
-        await this.prisma.sms.update({
-          where: {
-            id: id!,
-          },
+      if (!status) {
+        await this.prisma.sms.create({
           data: {
-            status,
-          },
-        });
-      } else {
-        await this.prisma.sms.update({
-          where: {
             id,
-          },
-          data: {
+            content: content,
+            phone: acceptedNumber,
+            sender,
             status: 'Failed',
           },
         });

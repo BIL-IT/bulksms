@@ -8,6 +8,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { MessagesModule } from './messages/messages.module';
 import { SmsClientService } from './sms-client/sms-client.service';
 import { SmsClientModule } from './sms-client/sms-client.module';
+import { DlrController } from './dlr/dlr.controller';
+import { DlrService } from './dlr/dlr.service';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { SmsClientModule } from './sms-client/sms-client.module';
     MessagesModule,
     SmsClientModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, SmsClientService],
+  controllers: [AppController, DlrController],
+  providers: [AppService, SmsClientService, DlrService],
 })
 export class AppModule {}
