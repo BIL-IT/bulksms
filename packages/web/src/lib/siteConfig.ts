@@ -45,7 +45,7 @@ export const siteConfig = {
       },
       {
         title: "Compose SMS",
-        href: "compose-sms",
+        href: "/compose-sms",
       },
     ];
 

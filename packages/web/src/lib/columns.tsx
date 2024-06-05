@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ChevronUp as ArrowUp } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -20,9 +19,7 @@ const dlrCodes = {
   "16": "Non-Delivered to SMSC.",
   "17": "Invalid Format",
   "18": "Failed",
-
-
-}
+};
 
 export const columns: ColumnDef<Message>[] = [
   {
@@ -34,11 +31,9 @@ export const columns: ColumnDef<Message>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Time
-          {column.getIsSorted() === "asc" ? (
-            <ArrowDown />
-          ) : column.getIsSorted() === "desc" ? (
-            <ArrowUp />
-          ) : null}
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
         </div>
       );
     },
@@ -55,11 +50,9 @@ export const columns: ColumnDef<Message>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Sender
-          {column.getIsSorted() === "asc" ? (
-            <ArrowDown />
-          ) : column.getIsSorted() === "desc" ? (
-            <ArrowUp />
-          ) : null}
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
         </div>
       );
     },
@@ -73,11 +66,9 @@ export const columns: ColumnDef<Message>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Phone
-          {column.getIsSorted() === "asc" ? (
-            <ArrowUp />
-          ) : column.getIsSorted() === "desc" ? (
-            <ArrowDown />
-          ) : null}
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
         </div>
       );
     },
@@ -90,12 +81,15 @@ export const columns: ColumnDef<Message>[] = [
           className="flex items-center gap-1 cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Content
-          {column.getIsSorted() === "asc" ? (
+          Message
+          {/* {column.getIsSorted() === "asc" ? (
             <ArrowDown />
           ) : column.getIsSorted() === "desc" ? (
             <ArrowUp />
-          ) : null}
+          ) : null} */}
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
         </div>
       );
     },
@@ -107,12 +101,31 @@ export const columns: ColumnDef<Message>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <div
+          className="flex items-center gap-1 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          {/* {column.getIsSorted() === "asc" ? (
+            <ArrowDown />
+          ) : column.getIsSorted() === "desc" ? (
+            <ArrowUp />
+          ) : null} */}
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
+        </div>
+      );
+    },
     cell(props) {
       return (
-        <div className="flex-1 w-fit">{dlrCodes[props.getValue() as keyof typeof dlrCodes]}</div>
-      )
-    }
+        <div className="flex-1 w-fit">
+          {dlrCodes[props.getValue() as keyof typeof dlrCodes]}
+        </div>
+      );
+    },
   },
   // {
   //   accessorKey: "pdf",
