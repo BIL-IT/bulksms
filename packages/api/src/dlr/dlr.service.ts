@@ -17,6 +17,9 @@ export class DlrService {
       },
     });
 
+    console.log(storedMessage);
+    
+
     if (storedMessage) {
       const updatedMessage = await this.prisma.sms.update({
         where: {
@@ -34,7 +37,7 @@ export class DlrService {
     if (!storedMessage) {
       const newMessage = await this.prisma.sms.create({
         data: {
-          content: message,
+          content: message + '\n\n -From Bhutan Insurance Limited',
           id: message_id,
           phone: recipient,
           sender: 'BIL',

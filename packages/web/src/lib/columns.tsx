@@ -12,6 +12,18 @@ export type Message = {
   status: string;
 };
 
+const dlrCodes = {
+  "1": "Delivered to phone",
+  "2": "Non-Delivered to Phone",
+  "4": "Queued on SMSC",
+  "8": "Delivered to SMSC",
+  "16": "Non-Delivered to SMSC.",
+  "17": "Invalid Format",
+  "18": "Failed",
+
+
+}
+
 export const columns: ColumnDef<Message>[] = [
   {
     accessorKey: "time",
@@ -89,13 +101,18 @@ export const columns: ColumnDef<Message>[] = [
     },
     cell(props) {
       return (
-        <div className="flex-1 w-[500px]">{props.getValue() as string}</div>
+        <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
       );
     },
   },
   {
     accessorKey: "status",
     header: "Status",
+    cell(props) {
+      return (
+        <div className="flex-1 w-fit">{dlrCodes[props.getValue() as keyof typeof dlrCodes]}</div>
+      )
+    }
   },
   // {
   //   accessorKey: "pdf",

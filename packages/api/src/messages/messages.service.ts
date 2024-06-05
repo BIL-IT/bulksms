@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+  import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AllMessages } from './output/all-messages.model';
 import { SmsClientService } from 'src/sms-client/sms-client.service';
@@ -40,14 +40,15 @@ export class MessagesService {
       if (!id) throw new Error('ID Uninitialized');
 
       if (!regNumber.test(number)) {
-        await this.prisma.sms.update({
-          where: {
-            id,
-          },
+        await this.prisma.sms.create({
           data: {
-            status: 'Invalid Format',
-          },
-        });
+            id,
+            content: message,
+            phone: number,
+            sender,
+            status: '17',
+          },}
+        )
 
         continue;
       }
@@ -62,10 +63,10 @@ export class MessagesService {
         await this.prisma.sms.create({
           data: {
             id,
-            content: content,
+            content: message,
             phone: acceptedNumber,
             sender,
-            status: 'Failed',
+            status: '18',
           },
         });
       }

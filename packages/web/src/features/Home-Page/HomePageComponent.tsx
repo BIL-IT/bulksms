@@ -41,7 +41,7 @@ export default function HomePageComponent() {
             <div className="w-[1050px] flex flex-col items-end gap-4">
               <button
                 onClick={() => refetchData()}
-                className="shadow p-3 rounded [&>*]:focus-within:animate-spin-once"
+                className="shadow-sm shadow-primary p-3 rounded [&>*]:focus-within:animate-spin-once"
               >
                 <Lucide.RefreshCcw className="text-sm" />{" "}
               </button>

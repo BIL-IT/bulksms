@@ -74,7 +74,7 @@ export default function ComposeSmsComponent() {
       <section className="flex justify-center bg-background text-foreground">
         <form
           onSubmit={formHandler}
-          className="w-[600px] min-h-[500px] my-[100px] h-fit border-2 flex flex-col gap-5 border-[#CCC] rounded-md p-10"
+          className="w-[550px] min-h-[500px] my-[100px] h-fit shadow-lg border flex flex-col gap-5 border-[#CCC] rounded-md p-10"
         >
           <label className="flex flex-col gap-2">
             <div>
