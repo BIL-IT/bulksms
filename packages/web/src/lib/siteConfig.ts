@@ -29,29 +29,19 @@ export const siteConfig = {
   getSecondaryHeaders: () => {
     const list = [
       {
-        title: "Incoming SMS",
-        // href: "incoming-sms",
-        href: "/",
-      },
-      {
-        title: "Incoming SMS TCell",
-        // href: "incoming-sms-tcell",
-        href: "/",
-      },
-      {
         title: "Outgoing SMS",
         // href: "outgoing-sms",
         href: "/",
       },
       {
-        title: "Outgoing SMS TCell",
-        // href: "outgoing-sms-tcell",
-        href: "/",
+        title: "Outgoing SMS B-Mobile",
+        // href: "outgoing-sms",
+        href: "/bmobile-outgoing",
       },
       {
-        title: "BIL Employee SMS",
-        // href: "bil-employee-sms",
-        href: "/",
+        title: "Outgoing SMS TashiCell",
+        // href: "outgoing-sms-tcell",
+        href: "/tcell-outgoing",
       },
       {
         title: "Compose SMS",
