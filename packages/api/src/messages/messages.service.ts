@@ -1,4 +1,4 @@
-  import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AllMessages } from './output/all-messages.model';
 import { SmsClientService } from 'src/sms-client/sms-client.service';
@@ -47,16 +47,16 @@ export class MessagesService {
             phone: number,
             sender,
             status: '17',
-          },}
-        )
+          },
+        });
 
         continue;
       }
 
-      const { content, status } = await this.smsClient.sendMessage(
-        'BIL',
+      const { status } = await this.smsClient.sendMessage(
         acceptedNumber,
         message,
+        'BIL',
       );
 
       if (!status) {
