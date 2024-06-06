@@ -3,10 +3,14 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class SmsClientService {
   async sendMessage(to: string, message: string, from?: string) {
+    const encodedMessage = encodeURI(message);
     const content = message + '\n\n -From Bhutan Insurance Limited';
     const uuid = crypto.randomUUID();
+    // const encodedURL = encodeURIComponent(
+    //   `http://localhost:3001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
+    // );
     const encodedURL = encodeURIComponent(
-      `http://localhost:3001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${content.split(' ').join('%20')}`,
+      `https://172.16.40.24:2001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
     );
     try {
       const res = await fetch(
