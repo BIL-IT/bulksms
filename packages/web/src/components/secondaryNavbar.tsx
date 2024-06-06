@@ -8,10 +8,6 @@ export default function SecondaryNavbar() {
 
   const dir = router.asPath.split("/")[1];
 
-  useEffect(() => {
-    console.log(dir);
-  }, [dir]);
-
   return (
     <nav className="flex justify-between  text-xl text-center">
       {siteConfig.getSecondaryHeaders().map((item, index) => (

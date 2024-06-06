@@ -52,11 +52,12 @@ export default function HomePageComponent() {
                     <label className="border p-3 flex flex-col gap-1 rounded">
                       <span className="flex justify-between">
                         <h4 className="text-xs font-semibold">Start Date</h4>
-                        {!!fromDate && (
-                          <button onClick={() => setFromDate("")}>
-                            <Lucide.X className="w-5 h-5 mr-1" />
-                          </button>
-                        )}
+                        <button
+                          onClick={() => setFromDate("")}
+                          className={`${fromDate ? "opacity-100" : "opacity-0"}`}
+                        >
+                          <Lucide.X className="w-5 h-5 mr-1" />
+                        </button>
                       </span>
                       <input
                         type="date"
@@ -70,11 +71,12 @@ export default function HomePageComponent() {
                     <label className="border p-3 flex flex-col gap-1 rounded">
                       <span className="flex justify-between">
                         <h4 className="text-xs font-semibold">End Date</h4>
-                        {!!toDate && (
-                          <button onClick={() => setToDate("")}>
-                            <Lucide.X className="w-5 h-5 mr-1" />
-                          </button>
-                        )}
+                        <button
+                          onClick={() => setToDate("")}
+                          className={`${toDate ? "opacity-100" : "opacity-0"}`}
+                        >
+                          <Lucide.X className="w-5 h-5 mr-1" />
+                        </button>
                       </span>
                       <input
                         type="date"
@@ -89,7 +91,7 @@ export default function HomePageComponent() {
                     onChange={(e) => setSearchField(e.target.value)}
                     value={searchField}
                     placeholder="Search for phone number or message"
-                    className="border p-3 bg-transparent rounded outline-none focus:border-gray-700"
+                    className="border p-3 placeholder:font-semibold bg-transparent rounded outline-none focus:border-gray-700"
                   />
                 </div>
                 <button
