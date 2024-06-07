@@ -74,12 +74,21 @@ export type Query = {
   __typename?: 'Query';
   GetAllSMS: Array<AllMessages>;
   Me: CurrentUserDetail;
+  getAllScheduledJobs: Array<ScheduledJobsOutput>;
 };
 
 export enum Role {
   Admin = 'ADMIN',
   User = 'USER'
 }
+
+export type ScheduledJobsOutput = {
+  __typename?: 'ScheduledJobsOutput';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  message: Scalars['String']['output'];
+  to: Scalars['String']['output'];
+};
 
 export type SignupDetails = {
   email: Scalars['String']['input'];
@@ -132,6 +141,11 @@ export type SendSmsMutationVariables = Exact<{
 
 
 export type SendSmsMutation = { __typename?: 'Mutation', SendSMS: { __typename?: 'SuccessMessageInput', message: string } };
+
+export type ScheduledJobsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ScheduledJobsQuery = { __typename?: 'Query', getAllScheduledJobs: Array<{ __typename?: 'ScheduledJobsOutput', id: string, createdAt: any, to: string, message: string }> };
 
 
 export const LoginDocument = gql`
@@ -352,3 +366,45 @@ export function useSendSmsMutation(baseOptions?: Apollo.MutationHookOptions<Send
 export type SendSmsMutationHookResult = ReturnType<typeof useSendSmsMutation>;
 export type SendSmsMutationResult = Apollo.MutationResult<SendSmsMutation>;
 export type SendSmsMutationOptions = Apollo.BaseMutationOptions<SendSmsMutation, SendSmsMutationVariables>;
+export const ScheduledJobsDocument = gql`
+    query ScheduledJobs {
+  getAllScheduledJobs {
+    id
+    createdAt
+    to
+    message
+  }
+}
+    `;
+
+/**
+ * __useScheduledJobsQuery__
+ *
+ * To run a query within a React component, call `useScheduledJobsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useScheduledJobsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useScheduledJobsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useScheduledJobsQuery(baseOptions?: Apollo.QueryHookOptions<ScheduledJobsQuery, ScheduledJobsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ScheduledJobsQuery, ScheduledJobsQueryVariables>(ScheduledJobsDocument, options);
+      }
+export function useScheduledJobsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ScheduledJobsQuery, ScheduledJobsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ScheduledJobsQuery, ScheduledJobsQueryVariables>(ScheduledJobsDocument, options);
+        }
+export function useScheduledJobsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ScheduledJobsQuery, ScheduledJobsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ScheduledJobsQuery, ScheduledJobsQueryVariables>(ScheduledJobsDocument, options);
+        }
+export type ScheduledJobsQueryHookResult = ReturnType<typeof useScheduledJobsQuery>;
+export type ScheduledJobsLazyQueryHookResult = ReturnType<typeof useScheduledJobsLazyQuery>;
+export type ScheduledJobsSuspenseQueryHookResult = ReturnType<typeof useScheduledJobsSuspenseQuery>;
+export type ScheduledJobsQueryResult = Apollo.QueryResult<ScheduledJobsQuery, ScheduledJobsQueryVariables>;

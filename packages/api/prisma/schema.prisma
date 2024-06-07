@@ -31,3 +31,10 @@ model Sms {
   content String
   status  String?
 }
+
+model Cron {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  to        String
+  message   String
+}

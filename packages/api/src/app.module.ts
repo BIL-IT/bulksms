@@ -10,9 +10,14 @@ import { SmsClientService } from './sms-client/sms-client.service';
 import { SmsClientModule } from './sms-client/sms-client.module';
 import { DlrController } from './dlr/dlr.controller';
 import { DlrService } from './dlr/dlr.service';
+import { CronJobsService } from './cron-jobs/cron-jobs.service';
+import { CronJobsModule } from './cron-jobs/cron-jobs.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronJobsController } from './cron-jobs/cron-jobs.controller';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -26,8 +31,9 @@ import { DlrService } from './dlr/dlr.service';
     PrismaModule,
     MessagesModule,
     SmsClientModule,
+    CronJobsModule,
   ],
-  controllers: [AppController, DlrController],
-  providers: [AppService, SmsClientService, DlrService],
+  controllers: [AppController, DlrController, CronJobsController],
+  providers: [AppService, SmsClientService, DlrService, CronJobsService],
 })
 export class AppModule {}

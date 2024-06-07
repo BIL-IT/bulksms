@@ -47,6 +47,10 @@ export const siteConfig = {
         title: "Compose SMS",
         href: "/compose-sms",
       },
+      {
+        title: "Scheduled Messages",
+        href: "/scheduled-messages",
+      },
     ];
 
     return list;

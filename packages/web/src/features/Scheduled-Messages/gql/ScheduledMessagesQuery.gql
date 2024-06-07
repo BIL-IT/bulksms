@@ -1,0 +1,8 @@
+query ScheduledJobs {
+  getAllScheduledJobs {
+    id
+    createdAt
+    to
+    message
+  }
+}
