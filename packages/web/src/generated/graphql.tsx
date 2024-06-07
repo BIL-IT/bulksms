@@ -28,6 +28,17 @@ export type AllMessages = {
   time: Scalars['DateTime']['output'];
 };
 
+export type CronJobNewFielUpdateInput = {
+  id: Scalars['String']['input'];
+  message: Scalars['String']['input'];
+  to: Scalars['String']['input'];
+};
+
+export type CronJobNewFieldInput = {
+  message: Scalars['String']['input'];
+  number: Scalars['String']['input'];
+};
+
 export type CurrentUserDetail = {
   __typename?: 'CurrentUserDetail';
   email: Scalars['String']['output'];
@@ -53,6 +64,9 @@ export type Mutation = {
   Logout: SuccessMessage;
   SendSMS: SuccessMessageInput;
   SignUp: SuccessMessage;
+  addNewField: Scalars['String']['output'];
+  deleteJob: Scalars['String']['output'];
+  editField: Scalars['String']['output'];
 };
 
 
@@ -68,6 +82,21 @@ export type MutationSendSmsArgs = {
 
 export type MutationSignUpArgs = {
   signupDetails: SignupDetails;
+};
+
+
+export type MutationAddNewFieldArgs = {
+  cronJobNewFieldInput: CronJobNewFieldInput;
+};
+
+
+export type MutationDeleteJobArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationEditFieldArgs = {
+  cronJobNewFielUpdateInput: CronJobNewFielUpdateInput;
 };
 
 export type Query = {
@@ -142,10 +171,31 @@ export type SendSmsMutationVariables = Exact<{
 
 export type SendSmsMutation = { __typename?: 'Mutation', SendSMS: { __typename?: 'SuccessMessageInput', message: string } };
 
+export type AddJobMutationVariables = Exact<{
+  cronJobNewFieldInput: CronJobNewFieldInput;
+}>;
+
+
+export type AddJobMutation = { __typename?: 'Mutation', addNewField: string };
+
+export type DeleteJobMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type DeleteJobMutation = { __typename?: 'Mutation', deleteJob: string };
+
 export type ScheduledJobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ScheduledJobsQuery = { __typename?: 'Query', getAllScheduledJobs: Array<{ __typename?: 'ScheduledJobsOutput', id: string, createdAt: any, to: string, message: string }> };
+
+export type UpdateJobMutationVariables = Exact<{
+  cronJobNewFielUpdateInput: CronJobNewFielUpdateInput;
+}>;
+
+
+export type UpdateJobMutation = { __typename?: 'Mutation', editField: string };
 
 
 export const LoginDocument = gql`
@@ -366,6 +416,68 @@ export function useSendSmsMutation(baseOptions?: Apollo.MutationHookOptions<Send
 export type SendSmsMutationHookResult = ReturnType<typeof useSendSmsMutation>;
 export type SendSmsMutationResult = Apollo.MutationResult<SendSmsMutation>;
 export type SendSmsMutationOptions = Apollo.BaseMutationOptions<SendSmsMutation, SendSmsMutationVariables>;
+export const AddJobDocument = gql`
+    mutation AddJob($cronJobNewFieldInput: CronJobNewFieldInput!) {
+  addNewField(cronJobNewFieldInput: $cronJobNewFieldInput)
+}
+    `;
+export type AddJobMutationFn = Apollo.MutationFunction<AddJobMutation, AddJobMutationVariables>;
+
+/**
+ * __useAddJobMutation__
+ *
+ * To run a mutation, you first call `useAddJobMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddJobMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addJobMutation, { data, loading, error }] = useAddJobMutation({
+ *   variables: {
+ *      cronJobNewFieldInput: // value for 'cronJobNewFieldInput'
+ *   },
+ * });
+ */
+export function useAddJobMutation(baseOptions?: Apollo.MutationHookOptions<AddJobMutation, AddJobMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddJobMutation, AddJobMutationVariables>(AddJobDocument, options);
+      }
+export type AddJobMutationHookResult = ReturnType<typeof useAddJobMutation>;
+export type AddJobMutationResult = Apollo.MutationResult<AddJobMutation>;
+export type AddJobMutationOptions = Apollo.BaseMutationOptions<AddJobMutation, AddJobMutationVariables>;
+export const DeleteJobDocument = gql`
+    mutation DeleteJob($id: String!) {
+  deleteJob(id: $id)
+}
+    `;
+export type DeleteJobMutationFn = Apollo.MutationFunction<DeleteJobMutation, DeleteJobMutationVariables>;
+
+/**
+ * __useDeleteJobMutation__
+ *
+ * To run a mutation, you first call `useDeleteJobMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteJobMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteJobMutation, { data, loading, error }] = useDeleteJobMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteJobMutation(baseOptions?: Apollo.MutationHookOptions<DeleteJobMutation, DeleteJobMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteJobMutation, DeleteJobMutationVariables>(DeleteJobDocument, options);
+      }
+export type DeleteJobMutationHookResult = ReturnType<typeof useDeleteJobMutation>;
+export type DeleteJobMutationResult = Apollo.MutationResult<DeleteJobMutation>;
+export type DeleteJobMutationOptions = Apollo.BaseMutationOptions<DeleteJobMutation, DeleteJobMutationVariables>;
 export const ScheduledJobsDocument = gql`
     query ScheduledJobs {
   getAllScheduledJobs {
@@ -408,3 +520,34 @@ export type ScheduledJobsQueryHookResult = ReturnType<typeof useScheduledJobsQue
 export type ScheduledJobsLazyQueryHookResult = ReturnType<typeof useScheduledJobsLazyQuery>;
 export type ScheduledJobsSuspenseQueryHookResult = ReturnType<typeof useScheduledJobsSuspenseQuery>;
 export type ScheduledJobsQueryResult = Apollo.QueryResult<ScheduledJobsQuery, ScheduledJobsQueryVariables>;
+export const UpdateJobDocument = gql`
+    mutation UpdateJob($cronJobNewFielUpdateInput: CronJobNewFielUpdateInput!) {
+  editField(cronJobNewFielUpdateInput: $cronJobNewFielUpdateInput)
+}
+    `;
+export type UpdateJobMutationFn = Apollo.MutationFunction<UpdateJobMutation, UpdateJobMutationVariables>;
+
+/**
+ * __useUpdateJobMutation__
+ *
+ * To run a mutation, you first call `useUpdateJobMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateJobMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateJobMutation, { data, loading, error }] = useUpdateJobMutation({
+ *   variables: {
+ *      cronJobNewFielUpdateInput: // value for 'cronJobNewFielUpdateInput'
+ *   },
+ * });
+ */
+export function useUpdateJobMutation(baseOptions?: Apollo.MutationHookOptions<UpdateJobMutation, UpdateJobMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateJobMutation, UpdateJobMutationVariables>(UpdateJobDocument, options);
+      }
+export type UpdateJobMutationHookResult = ReturnType<typeof useUpdateJobMutation>;
+export type UpdateJobMutationResult = Apollo.MutationResult<UpdateJobMutation>;
+export type UpdateJobMutationOptions = Apollo.BaseMutationOptions<UpdateJobMutation, UpdateJobMutationVariables>;

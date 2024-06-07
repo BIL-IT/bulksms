@@ -1,0 +1,3 @@
+mutation UpdateJob($cronJobNewFielUpdateInput: CronJobNewFielUpdateInput!) {
+  editField(cronJobNewFielUpdateInput: $cronJobNewFielUpdateInput)
+}

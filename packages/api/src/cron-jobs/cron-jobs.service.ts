@@ -41,7 +41,7 @@ export class CronJobsService implements OnModuleInit {
   async scheduledJobs() {
     const getScheduledJobs = await this.prisma.cron.findMany();
     for (const job of getScheduledJobs) {
-      await this.messagesService.SendSMS([job.to], job.message, 'BIL');
+      await this.messagesService.SendSMS(job.to.split(','), job.message, 'BIL');
     }
   }
 

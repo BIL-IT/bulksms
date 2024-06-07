@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import { useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState("light");
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <Navbar theme={theme} setTheme={setTheme} />
         <Component {...pageProps} />
+        <Toaster />
       </main>
     </ApolloProvider>
   );

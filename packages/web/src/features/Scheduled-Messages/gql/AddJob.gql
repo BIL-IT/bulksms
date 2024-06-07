@@ -1,0 +1,3 @@
+mutation AddJob($cronJobNewFieldInput: CronJobNewFieldInput!) {
+  addNewField(cronJobNewFieldInput: $cronJobNewFieldInput)
+}
