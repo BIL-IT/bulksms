@@ -65,7 +65,6 @@ export class CronJobsService implements OnModuleInit {
     // const cron = this.schedulerRegistry.addCronJob(name, job);
   }
 
-  // @Cron(CronExpression.EVERY_2ND_HOUR)
   @Cron('40 14 * * 0', {
     name: 'Renewal',
     timeZone: 'Asia/Thimphu',

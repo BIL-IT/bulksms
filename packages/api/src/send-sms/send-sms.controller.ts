@@ -20,7 +20,11 @@ export class SendSmsController {
   ) {
     try {
       const parsedMessage = messageSchema.parse(messageDetail);
-      console.log(parsedMessage.message, parsedMessage.to);
+      await this.sendSmsService.sendSMS(
+        parsedMessage.message,
+        parsedMessage.to,
+      );
+
       response.status(200).json({
         message: 'Successfull',
       });
