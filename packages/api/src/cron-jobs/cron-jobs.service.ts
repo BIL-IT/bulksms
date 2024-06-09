@@ -66,7 +66,8 @@ export class CronJobsService implements OnModuleInit {
   }
 
   // @Cron(CronExpression.EVERY_2ND_HOUR)
-  @Cron('13 1 * * 0', {
+  @Cron('40 14 * * 0', {
+    name: 'Renewal',
     timeZone: 'Asia/Thimphu',
   })
   async scheduledJobs() {
@@ -90,6 +91,8 @@ export class CronJobsService implements OnModuleInit {
         }
       });
     });
+
+    // console.log('HEllo from CRon');
   }
 
   onModuleInit() {
