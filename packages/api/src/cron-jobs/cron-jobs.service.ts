@@ -4,6 +4,32 @@ import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
 import { MessagesService } from 'src/messages/messages.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+type InsurancePolicyRenewalExpiry = {
+  phone_no: string;
+  message: string;
+};
+
+const testData = [
+  {
+    phone_no: '17439160/77360762',
+    message:
+      'Message Dear Tenzin (Test) , your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
+  },
+  {
+    phone_no: '17949827/77853865',
+    message:
+      'Message Dear Govinda Parsad Sharma, your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
+  },
+  {
+    phone_no: '17688382/17801773',
+    message:
+      'Message Dear Govinda Parsad Sharma, your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
+  },
+] as InsurancePolicyRenewalExpiry[];
+
+const API =
+  'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_expirytoday_sms';
+
 @Injectable()
 export class CronJobsService implements OnModuleInit {
   constructor(
@@ -37,12 +63,21 @@ export class CronJobsService implements OnModuleInit {
     // const cron = this.schedulerRegistry.addCronJob(name, job);
   }
 
-  // @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_2ND_HOUR)
   async scheduledJobs() {
-    const getScheduledJobs = await this.prisma.cron.findMany();
-    for (const job of getScheduledJobs) {
-      await this.messagesService.SendSMS(job.to.split(','), job.message, 'BIL');
-    }
+    // const res = await fetch(API);
+    // const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach((newDatum) => {
+        if (newDatum) {
+          console.log('Phone Number', newDatum, `(${datum.phone_no})`);
+          console.log('Message', datum.message);
+          console.log('\n\n\n');
+        }
+      });
+    });
   }
 
   onModuleInit() {

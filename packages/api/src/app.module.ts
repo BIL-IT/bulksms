@@ -14,6 +14,8 @@ import { CronJobsService } from './cron-jobs/cron-jobs.service';
 import { CronJobsModule } from './cron-jobs/cron-jobs.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CronJobsController } from './cron-jobs/cron-jobs.controller';
+import { SendSmsController } from './send-sms/send-sms.controller';
+import { SendSmsService } from './send-sms/send-sms.service';
 
 @Module({
   imports: [
@@ -33,7 +35,7 @@ import { CronJobsController } from './cron-jobs/cron-jobs.controller';
     SmsClientModule,
     CronJobsModule,
   ],
-  controllers: [AppController, DlrController, CronJobsController],
-  providers: [AppService, SmsClientService, DlrService, CronJobsService],
+  controllers: [AppController, DlrController, CronJobsController, SendSmsController],
+  providers: [AppService, SmsClientService, DlrService, CronJobsService, SendSmsService],
 })
 export class AppModule {}
