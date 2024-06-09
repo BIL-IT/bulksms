@@ -27,7 +27,7 @@ export default function UpperNavbarComponent({
     <nav className="w-full flex justify-between px-3 py-2 items-center">
       <div className="flex gap-3 items-center text-lg">
         <Button
-          onClick={() => logoutMutation().then(() => router.push("/login"))}
+          onClick={() => logoutMutation().then(() => router.reload())}
           className=""
         >
           Logout

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import * as Lucide from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
+import { DataTableToolbar } from "@/components/DataTable/data-table-toolbar";
 
 export default function HomePageComponent() {
   const router = useRouter();

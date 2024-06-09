@@ -6,6 +6,11 @@ import {
   useReactTable,
   getPaginationRowModel,
   getSortedRowModel,
+  getFilteredRowModel,
+  ColumnFiltersState,
+  getFacetedUniqueValues,
+  getFacetedRowModel,
+  VisibilityState,
 } from "@tanstack/react-table";
 
 import {
@@ -20,6 +25,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
+import { DataTableToolbar } from "./data-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,21 +37,31 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onColumnFiltersChange: setColumnFilters,
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full grid gap-2 relative">
+      <DataTableToolbar table={table} />
+
       <div className="rounded-md border">
         <Table>
           <TableHeader className="bg-background ">

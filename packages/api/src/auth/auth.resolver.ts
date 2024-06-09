@@ -76,7 +76,6 @@ export class AuthResolver {
   async Logout(@Context() { res }: { res: Response }): Promise<SuccessMessage> {
     try {
       res.clearCookie('auth');
-
       return { message: 'Success' };
     } catch {
       return {

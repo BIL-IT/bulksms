@@ -75,6 +75,9 @@ export const columns: ColumnDef<Message>[] = [
   },
   {
     accessorKey: "content",
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
     header: ({ column }) => {
       return (
         <div
@@ -95,7 +98,8 @@ export const columns: ColumnDef<Message>[] = [
     },
     cell(props) {
       return (
-        <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
+        // <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
+        <div className="flex-1 w-[400px]">1</div>
       );
     },
   },
