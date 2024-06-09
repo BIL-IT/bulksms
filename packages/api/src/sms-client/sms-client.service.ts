@@ -10,7 +10,7 @@ export class SmsClientService {
     //   `http://localhost:3001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
     // );
     const encodedURL = encodeURIComponent(
-      `https://172.16.40.24:2001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
+      `https://172.16.16.108:2001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
     );
     try {
       const res = await fetch(
