@@ -3,6 +3,7 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
 import { MessagesService } from 'src/messages/messages.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { SmsClientService } from 'src/sms-client/sms-client.service';
 
 type InsurancePolicyRenewalExpiry = {
   phone_no: string;
@@ -36,6 +37,7 @@ export class CronJobsService implements OnModuleInit {
     private prisma: PrismaService,
     private readonly schedulerRegistry: SchedulerRegistry,
     private messagesService: MessagesService,
+    private smsClientService: SmsClientService,
   ) {}
 
   private readonly logger = new Logger(CronJobsService.name);
@@ -63,18 +65,28 @@ export class CronJobsService implements OnModuleInit {
     // const cron = this.schedulerRegistry.addCronJob(name, job);
   }
 
-  @Cron(CronExpression.EVERY_2ND_HOUR)
+  // @Cron(CronExpression.EVERY_2ND_HOUR)
+  @Cron('13 1 * * 0', {
+    timeZone: 'Asia/Thimphu',
+  })
   async scheduledJobs() {
     // const res = await fetch(API);
     // const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
     const data = testData;
 
     data.forEach((datum) => {
-      datum.phone_no.split('/').forEach((newDatum) => {
-        if (newDatum) {
-          console.log('Phone Number', newDatum, `(${datum.phone_no})`);
-          console.log('Message', datum.message);
-          console.log('\n\n\n');
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          try {
+            const messageSent = await this.smsClientService.sendMessage(
+              phone_no,
+              datum.message,
+            );
+
+            if (!messageSent) throw new Error('Unable to send message');
+          } catch (error) {
+            throw new Error(error);
+          }
         }
       });
     });
