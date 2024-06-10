@@ -23,6 +23,11 @@ const dlrCodes = {
 
 export const columns: ColumnDef<Message>[] = [
   {
+    accessorKey: "id",
+    header: "Sl. No",
+    cell: (props) => <p>{props.row.index + 1}</p>,
+  },
+  {
     accessorKey: "time",
     header: ({ column }) => {
       return (
@@ -98,8 +103,7 @@ export const columns: ColumnDef<Message>[] = [
     },
     cell(props) {
       return (
-        // <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
-        <div className="flex-1 w-[400px]">1</div>
+        <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
       );
     },
   },
@@ -122,6 +126,16 @@ export const columns: ColumnDef<Message>[] = [
           />
         </div>
       );
+    },
+    filterFn: (row, id, value: string[]) => {
+      console.log(value);
+
+      if (value.includes("1")) {
+        // value.push("8");
+        return [...value, "8"].includes(row.getValue(id));
+      }
+      return value.includes(row.getValue(id));
+      // return true;
     },
     cell(props) {
       return (

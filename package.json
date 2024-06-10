@@ -12,6 +12,7 @@
     "start:server": "yarn workspace @packages/api start:dev"
   },
   "dependencies": {
+    "argon2": "^0.40.3",
     "zod": "^3.23.8"
   }
 }

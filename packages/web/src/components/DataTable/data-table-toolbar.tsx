@@ -1,4 +1,4 @@
-import { Cross as Cross2Icon } from "lucide-react";
+import { XSquareIcon } from "lucide-react";
 import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -28,9 +28,9 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         /> */}
-        {table.getColumn("content") && (
+        {table.getColumn("status") && (
           <DataTableFacetedFilter
-            column={table.getColumn("content")}
+            column={table.getColumn("status")}
             title="Status"
             options={statuses}
           />
@@ -49,7 +49,7 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            <XSquareIcon className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>

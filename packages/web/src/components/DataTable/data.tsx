@@ -7,6 +7,9 @@ import {
   CrosshairIcon as CrossCircledIcon,
   CircleDashed as QuestionMarkCircledIcon,
   WatchIcon as StopwatchIcon,
+  MailCheck,
+  Ban,
+  TicketX,
 } from "lucide-react";
 
 export const labels = [
@@ -26,19 +29,19 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "Final Test",
-    label: "Final Test",
-    icon: QuestionMarkCircledIcon,
+    label: "Delivered",
+    value: "1",
+    icon: MailCheck,
   },
   {
-    value: "RegEx Test 6",
-    label: "RegEx Test 6",
-    icon: CircleIcon,
+    label: "Failed",
+    value: "18",
+    icon: Ban,
   },
   {
-    value: "RegEx Test 5",
-    label: "RegEx Test 5",
-    icon: StopwatchIcon,
+    label: "Invalid Format",
+    value: "17",
+    icon: TicketX,
   },
   // {
   //   value: "done",

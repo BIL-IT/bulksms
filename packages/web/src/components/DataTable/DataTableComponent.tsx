@@ -26,15 +26,28 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import * as Lucide from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  fromDate: string;
+  setFromDate: (fromDate: string) => void;
+  toDate: string;
+  setToDate: (toDate: string) => void;
+  searchField: string;
+  setSearchField: (searchField: string) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  fromDate,
+  setFromDate,
+  toDate,
+  setToDate,
+  searchField,
+  setSearchField,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -60,7 +73,54 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full grid gap-2 relative">
-      <DataTableToolbar table={table} />
+      <div className="flex gap-2 items-end ">
+        <div>
+          <label className="border p-3 flex flex-col gap-1 rounded">
+            <span className="flex justify-between">
+              <h4 className="text-xs font-semibold">Start Date</h4>
+              <button
+                onClick={() => setFromDate("")}
+                className={`${fromDate ? "opacity-100" : "opacity-0"}`}
+              >
+                <Lucide.X className="w-5 h-5 mr-1" />
+              </button>
+            </span>
+            <input
+              type="date"
+              value={fromDate.toString()}
+              onChange={(e) => setFromDate(e.target.value)}
+              className="outline-none bg-transparent min-w-[150px]"
+            />
+          </label>
+        </div>
+        <div>
+          <label className="border p-3 flex flex-col gap-1 rounded">
+            <span className="flex justify-between">
+              <h4 className="text-xs font-semibold">End Date</h4>
+              <button
+                onClick={() => setToDate("")}
+                className={`${toDate ? "opacity-100" : "opacity-0"}`}
+              >
+                <Lucide.X className="w-5 h-5 mr-1" />
+              </button>
+            </span>
+            <input
+              type="date"
+              value={toDate.toString()}
+              onChange={(e) => setToDate(e.target.value)}
+              className="outline-none bg-transparent min-w-[150px]"
+            />
+          </label>
+        </div>
+        <input
+          type="text"
+          onChange={(e) => setSearchField(e.target.value)}
+          value={searchField}
+          placeholder="Search for phone number or message"
+          className="border-2 px-3 py-2 placeholder:font-semibold bg-transparent rounded outline-none focus:border-gray-700"
+        />
+        <DataTableToolbar table={table} />
+      </div>
 
       <div className="rounded-md border">
         <Table>
