@@ -57,7 +57,7 @@ export default function LoginPageComponent() {
   }
 
   return (
-    <div className="h-screen grid place-content-center">
+    <div className="h-screen grid place-content-center flex-1">
       <Head>
         <title>Login</title>
       </Head>

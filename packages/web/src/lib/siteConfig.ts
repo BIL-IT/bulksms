@@ -36,19 +36,40 @@ export const siteConfig = {
         Icon: Lucide.Home,
       },
       {
+        title: "TashiCell Outgoing",
+        href: "/tcell-outgoing",
+        Icon: Lucide.Type,
+      },
+      {
+        title: "B-Mobile Outgoing",
+        href: "/bmobile-outgoing",
+        Icon: Lucide.Bold,
+      },
+      {
         title: "Compose SMS",
         href: "/compose-sms",
         Icon: Lucide.MailPlus,
       },
       {
         title: "Schedule Message",
-        href: "/schedule-messages",
+        href: "/scheduled-messages",
         Icon: Lucide.CalendarCheck,
       },
     ];
     return list;
   },
 
+  getNewSecondaryHeaders: () => {
+    const list = [
+      {
+        title: "Change Password",
+        href: "/change-password",
+        Icon: Lucide.Cog,
+      },
+    ];
+
+    return list;
+  },
   getSecondaryHeaders: () => {
     const list = [
       {

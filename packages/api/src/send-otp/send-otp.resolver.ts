@@ -8,6 +8,7 @@ export class SendOtpResolver {
   @Mutation(() => String)
   async sendOTP(@Args('phoneNumber') phoneNumber: string): Promise<string> {
     const code = await this.sendOtpService.sendOTP(phoneNumber);
+    console.log(code);
     return code;
   }
 }

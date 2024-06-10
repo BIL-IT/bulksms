@@ -36,69 +36,20 @@ export default function TcellOutgoingPage() {
   return (
     meData &&
     data && (
-      <section className="bg-background">
+      <section className="bg-background flex-1">
         <Head>
           <title>Home</title>
         </Head>
-        <div className="flex justify-center py-14 min-h-full">
-          <div className="xl:w-[1200px] flex justify-center">
-            <div className="w-[1050px] flex flex-col items-end gap-4">
-              <div className="w-full flex items-end justify-between">
-                <div className="flex gap-2 items-end ">
-                  <div>
-                    <label className="border p-3 flex flex-col gap-1 rounded">
-                      <span className="flex justify-between">
-                        <h4 className="text-xs font-semibold">Start Date</h4>
-                        <button
-                          onClick={() => setFromDate("")}
-                          className={`${fromDate ? "opacity-100" : "opacity-0"}`}
-                        >
-                          <Lucide.X className="w-5 h-5 mr-1" />
-                        </button>
-                      </span>
-                      <input
-                        type="date"
-                        value={fromDate.toString()}
-                        onChange={(e) => setFromDate(e.target.value)}
-                        className="outline-none bg-transparent min-w-[150px]"
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label className="border p-3 flex flex-col gap-1 rounded">
-                      <span className="flex justify-between">
-                        <h4 className="text-xs font-semibold">End Date</h4>
-                        <button
-                          onClick={() => setToDate("")}
-                          className={`${toDate ? "opacity-100" : "opacity-0"}`}
-                        >
-                          <Lucide.X className="w-5 h-5 mr-1" />
-                        </button>
-                      </span>
-                      <input
-                        type="date"
-                        value={toDate.toString()}
-                        onChange={(e) => setToDate(e.target.value)}
-                        className="outline-none bg-transparent min-w-[150px]"
-                      />
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    onChange={(e) => setSearchField(e.target.value)}
-                    value={searchField}
-                    placeholder="Search for phone number or message"
-                    className="border p-3 bg-transparent rounded outline-none focus:border-gray-700"
-                  />
-                </div>
-                <button
-                  onClick={() => refetchData()}
-                  className="shadow-sm active:bg-card-foreground active:text-card shadow-primary p-3 rounded [&>*]:focus-within:animate-spin-once"
-                >
-                  <Lucide.RefreshCcw className="text-sm" />{" "}
-                </button>
-              </div>
+        <div className="flex justify-center py-7 min-h-full">
+          <div className="xl:max-w-[1200px] w-full flex justify-center">
+            <div className="max-w-[1050px] w-full flex flex-col items-end gap-4">
               <DataTable
+                fromDate={fromDate}
+                searchField={searchField}
+                setFromDate={setFromDate}
+                setSearchField={setSearchField}
+                setToDate={setToDate}
+                toDate={toDate}
                 columns={columns}
                 data={data.GetAllSMS.filter((prev) =>
                   prev.phone.startsWith("77")

@@ -19,8 +19,14 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 export default function ScheduledMessagesComponent() {
+  const [searchField, setSearchField] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const dateSchema = z.coerce.date();
+
   const router = useRouter();
 
   const {
@@ -86,9 +92,9 @@ export default function ScheduledMessagesComponent() {
         <Head>
           <title>Scheduled Messages</title>
         </Head>
-        <div className="flex justify-center py-14 min-h-full">
-          <div className="xl:w-[1200px] flex justify-center">
-            <div className="w-[1050px] flex flex-col items-end gap-4">
+        <div className="flex justify-center py-7 min-h-full">
+          <div className="xl:max-w-[1200px] w-full flex justify-center">
+            <div className="max-w-[1050px] w-full flex flex-col items-start gap-4">
               <Dialog key={1}>
                 <DialogTrigger
                   className="bg-green-600 px-3 py-2 rounded text-white "
@@ -132,7 +138,38 @@ export default function ScheduledMessagesComponent() {
               </Dialog>
               {data && (
                 <DataTable
-                  data={data.getAllScheduledJobs}
+                  fromDate={fromDate}
+                  searchField={searchField}
+                  setFromDate={setFromDate}
+                  setSearchField={setSearchField}
+                  setToDate={setToDate}
+                  toDate={toDate}
+                  data={data.getAllScheduledJobs
+                    .filter(
+                      (prev) =>
+                        prev.to.includes(searchField) ||
+                        prev.message
+                          .toLowerCase()
+                          .includes(searchField.toLowerCase())
+                    )
+                    .filter((prev) => {
+                      if (!fromDate) return true;
+                      else {
+                        return (
+                          dateSchema.parse(prev.createdAt).getTime() >
+                          dateSchema.parse(fromDate).getTime()
+                        );
+                      }
+                    })
+                    .filter((prev) => {
+                      if (!toDate) return true;
+                      else {
+                        return (
+                          dateSchema.parse(prev.createdAt).getTime() <
+                          dateSchema.parse(toDate).getTime()
+                        );
+                      }
+                    })}
                   columns={scheduledJobsCol}
                 />
               )}

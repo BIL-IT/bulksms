@@ -52,7 +52,7 @@ export default function SignUpPageComponent() {
   }
 
   return (
-    <div className="min-h-screen grid place-content-center">
+    <div className="min-h-screen grid place-content-center flex-1">
       <Head>
         <title>Sign Up</title>
       </Head>
