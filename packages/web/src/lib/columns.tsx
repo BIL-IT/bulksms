@@ -24,7 +24,7 @@ const dlrCodes = {
 export const columns: ColumnDef<Message>[] = [
   {
     accessorKey: "id",
-    header: "Sl. No",
+    header: "No.",
     cell: (props) => <p>{props.row.index + 1}</p>,
   },
   {

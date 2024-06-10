@@ -1,3 +1,5 @@
+import * as Lucide from "lucide-react";
+
 export const siteConfig = {
   getHeaders: () => {
     const list = [
@@ -23,6 +25,27 @@ export const siteConfig = {
       },
     ];
 
+    return list;
+  },
+
+  getNewHeaders: () => {
+    const list = [
+      {
+        title: "Home",
+        href: "/",
+        Icon: Lucide.Home,
+      },
+      {
+        title: "Compose SMS",
+        href: "/compose-sms",
+        Icon: Lucide.MailPlus,
+      },
+      {
+        title: "Schedule Message",
+        href: "/schedule-messages",
+        Icon: Lucide.CalendarCheck,
+      },
+    ];
     return list;
   },
 

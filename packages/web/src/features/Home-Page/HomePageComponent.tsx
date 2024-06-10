@@ -40,21 +40,21 @@ export default function HomePageComponent() {
   return (
     meData &&
     data && (
-      <section className="bg-background">
+      <section className="bg-background flex-1">
         <Head>
           <title>Home</title>
         </Head>
-        <div className="flex justify-center py-14 min-h-full">
-          <div className="xl:w-[1200px] flex justify-center">
-            <div className="w-[1050px] flex flex-col items-end gap-4">
-              <div className="w-full flex items-end justify-between">
+        <div className="flex justify-center py-7 min-h-full">
+          <div className="xl:max-w-[1200px] w-full flex justify-center">
+            <div className="max-w-[1050px] w-full flex flex-col items-end gap-4">
+              {/* <div className="w-full flex items-end justify-between">
                 <button
                   onClick={() => refetchData()}
                   className="shadow-sm active:bg-card-foreground active:text-card shadow-primary p-3 rounded [&>*]:focus-within:animate-spin-once"
                 >
                   <Lucide.RefreshCcw className="text-sm" />{" "}
                 </button>
-              </div>
+              </div> */}
               <DataTable
                 fromDate={fromDate}
                 searchField={searchField}

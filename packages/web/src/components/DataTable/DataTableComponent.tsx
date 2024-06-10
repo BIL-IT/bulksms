@@ -73,8 +73,8 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full grid gap-2 relative">
-      <div className="flex gap-2 items-end ">
-        <div>
+      <div className="flex text-primary gap-2 items-end ">
+        <div className="">
           <label className="border p-3 flex flex-col gap-1 rounded">
             <span className="flex justify-between">
               <h4 className="text-xs font-semibold">Start Date</h4>
@@ -117,13 +117,13 @@ export function DataTable<TData, TValue>({
           onChange={(e) => setSearchField(e.target.value)}
           value={searchField}
           placeholder="Search for phone number or message"
-          className="border-2 px-3 py-2 placeholder:font-semibold bg-transparent rounded outline-none focus:border-gray-700"
+          className="border-2 px-3 py-2 placeholder:font-semibold bg-transparent rounded outline-none focus:border-primary"
         />
         <DataTableToolbar table={table} />
       </div>
 
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border text-primary">
+        <Table className="">
           <TableHeader className="bg-background ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -131,7 +131,7 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-foreground bg-secondary select-none font-bold text-lg"
+                      className="text-primary font-mono bg-secondary select-none font-semibold text-base"
                     >
                       {header.isPlaceholder
                         ? null
@@ -195,7 +195,7 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div> */}
-      <div className="mt-3">
+      <div className="mt-3 text-primary">
         <DataTablePagination table={table} />
       </div>
     </div>

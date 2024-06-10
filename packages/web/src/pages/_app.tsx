@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import SideNav from "@/components/sideNav";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState("light");
@@ -12,9 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <main
-        className={`${theme === "dark" && "dark"} text-foreground flex flex-col min-h-screen [&>section]:flex-1`}
+        className={`${theme === "dark" && "dark"} text-foreground flex min-h-screen gap-7 items-start`}
       >
-        <Navbar theme={theme} setTheme={setTheme} />
+        {/* <Navbar theme={theme} setTheme={setTheme} /> */}
+        <SideNav />
         <Component {...pageProps} />
         <Toaster />
       </main>
