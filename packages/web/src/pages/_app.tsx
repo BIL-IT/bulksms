@@ -13,13 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <main
-        className={`${theme === "dark" && "dark"} text-foreground flex min-h-screen gap-7 items-start`}
+        className={`${theme === "dark" && "dark"} text-foreground flex min-h-screen gap-7`}
       >
         {/* <Navbar theme={theme} setTheme={setTheme} /> */}
         <SideNav />
         <Component {...pageProps} />
-        <Toaster />
       </main>
+      <Toaster />
     </ApolloProvider>
   );
 }

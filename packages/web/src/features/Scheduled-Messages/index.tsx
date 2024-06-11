@@ -93,8 +93,8 @@ export default function ScheduledMessagesComponent() {
           <title>Scheduled Messages</title>
         </Head>
         <div className="flex justify-center py-7 min-h-full">
-          <div className="xl:max-w-[1200px] w-full flex justify-center">
-            <div className="max-w-[1050px] w-full flex flex-col items-start gap-4">
+          <div className="xl:max-w-[1100px] 2xl:max-w-[1500px] w-full flex justify-center">
+            <div className="xl:max-w-[1000px] 2xl:max-w-[1300px] flex flex-col items-start gap-4">
               <Dialog key={1}>
                 <DialogTrigger
                   className="bg-green-600 px-3 py-2 rounded text-white "

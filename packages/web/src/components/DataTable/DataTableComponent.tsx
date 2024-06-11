@@ -27,6 +27,7 @@ import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import * as Lucide from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,8 +73,8 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-full grid gap-2 relative">
-      <div className="flex text-primary gap-2 items-end ">
+    <div className="w-full flex-grow-0 grid gap-2 relative">
+      <div className="flex text-black gap-2 items-end ">
         <div className="">
           <label className="border p-3 flex flex-col gap-1 rounded">
             <span className="flex justify-between">
@@ -122,7 +123,7 @@ export function DataTable<TData, TValue>({
         <DataTableToolbar table={table} />
       </div>
 
-      <div className="rounded-md border text-primary">
+      <div className="rounded-md border text-black">
         <Table className="">
           <TableHeader className="bg-background ">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -131,7 +132,7 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-primary font-mono bg-secondary select-none font-semibold text-base"
+                      className="text-black font-mono bg-secondary select-none font-semibold text-base"
                     >
                       {header.isPlaceholder
                         ? null
@@ -195,7 +196,7 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div> */}
-      <div className="mt-3 text-primary">
+      <div className="mt-3 text-black">
         <DataTablePagination table={table} />
       </div>
     </div>

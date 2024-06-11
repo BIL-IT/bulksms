@@ -18,6 +18,7 @@ import { SendSmsController } from './send-sms/send-sms.controller';
 import { SendSmsService } from './send-sms/send-sms.service';
 import { SendOtpService } from './send-otp/send-otp.service';
 import { SendOtpModule } from './send-otp/send-otp.module';
+import { GenerateReportModule } from './generate-report/generate-report.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { SendOtpModule } from './send-otp/send-otp.module';
     SmsClientModule,
     CronJobsModule,
     SendOtpModule,
+    GenerateReportModule,
   ],
   controllers: [AppController, DlrController, CronJobsController, SendSmsController],
   providers: [AppService, SmsClientService, DlrService, CronJobsService, SendSmsService, SendOtpService],

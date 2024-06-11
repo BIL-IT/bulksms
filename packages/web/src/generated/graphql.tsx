@@ -67,6 +67,8 @@ export type Mutation = {
   addNewField: Scalars['String']['output'];
   deleteJob: Scalars['String']['output'];
   editField: Scalars['String']['output'];
+  generateReport: Scalars['String']['output'];
+  sendOTP: Scalars['String']['output'];
 };
 
 
@@ -99,11 +101,27 @@ export type MutationEditFieldArgs = {
   cronJobNewFielUpdateInput: CronJobNewFielUpdateInput;
 };
 
+
+export type MutationGenerateReportArgs = {
+  reportDetailsInput: ReportDetailsInput;
+};
+
+
+export type MutationSendOtpArgs = {
+  phoneNumber: Scalars['String']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   GetAllSMS: Array<AllMessages>;
   Me: CurrentUserDetail;
   getAllScheduledJobs: Array<ScheduledJobsOutput>;
+};
+
+export type ReportDetailsInput = {
+  endDate: Scalars['DateTime']['input'];
+  startDate: Scalars['DateTime']['input'];
+  status: Array<Scalars['String']['input']>;
 };
 
 export enum Role {
@@ -158,6 +176,13 @@ export type SignUpMutationVariables = Exact<{
 
 
 export type SignUpMutation = { __typename?: 'Mutation', SignUp: { __typename?: 'SuccessMessage', message: string } };
+
+export type GenerateReportMutationVariables = Exact<{
+  reportDetailsInput: ReportDetailsInput;
+}>;
+
+
+export type GenerateReportMutation = { __typename?: 'Mutation', generateReport: string };
 
 export type GetAllSmsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -339,6 +364,37 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const GenerateReportDocument = gql`
+    mutation GenerateReport($reportDetailsInput: ReportDetailsInput!) {
+  generateReport(reportDetailsInput: $reportDetailsInput)
+}
+    `;
+export type GenerateReportMutationFn = Apollo.MutationFunction<GenerateReportMutation, GenerateReportMutationVariables>;
+
+/**
+ * __useGenerateReportMutation__
+ *
+ * To run a mutation, you first call `useGenerateReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGenerateReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [generateReportMutation, { data, loading, error }] = useGenerateReportMutation({
+ *   variables: {
+ *      reportDetailsInput: // value for 'reportDetailsInput'
+ *   },
+ * });
+ */
+export function useGenerateReportMutation(baseOptions?: Apollo.MutationHookOptions<GenerateReportMutation, GenerateReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GenerateReportMutation, GenerateReportMutationVariables>(GenerateReportDocument, options);
+      }
+export type GenerateReportMutationHookResult = ReturnType<typeof useGenerateReportMutation>;
+export type GenerateReportMutationResult = Apollo.MutationResult<GenerateReportMutation>;
+export type GenerateReportMutationOptions = Apollo.BaseMutationOptions<GenerateReportMutation, GenerateReportMutationVariables>;
 export const GetAllSmsDocument = gql`
     query GetAllSMS {
   GetAllSMS {

@@ -66,6 +66,11 @@ export const siteConfig = {
         href: "/change-password",
         Icon: Lucide.Cog,
       },
+      {
+        title: "Add User",
+        href: "/add-user",
+        Icon: Lucide.UserPlus,
+      },
     ];
 
     return list;

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import * as argon from "argon2";
 
 const signUpSchema = z.object({
   username: z.string().min(1, {
@@ -25,6 +26,10 @@ const signUpSchema = z.object({
 
 export default function SignUpPageComponent() {
   const router = useRouter();
+
+  if (router.isReady) {
+    router.push("/");
+  }
 
   const {
     register,
@@ -51,80 +56,82 @@ export default function SignUpPageComponent() {
     }).then(() => router.push("/"));
   }
 
-  return (
-    <div className="min-h-screen grid place-content-center flex-1">
-      <Head>
-        <title>Sign Up</title>
-      </Head>
-      <form
-        onSubmit={handleSubmit(formHandler)}
-        className="w-[500px] my-10 h-fit flex flex-col gap-5 p-10 shadow-gray-600 shadow rounded"
-      >
-        <h1 className="text-3xl mb-3 font-bold">Sign Up</h1>
-        <label>
-          <p>Email</p>
-          <input
-            {...register("email")}
-            className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
-          />
-          {errors.email && <ErrorLabel>{errors.email.message}</ErrorLabel>}
-        </label>
-        <label>
-          <p>Username</p>
-          <input
-            {...register("username")}
-            className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
-          />
-          {errors.username && (
-            <ErrorLabel>{errors.username.message}</ErrorLabel>
-          )}
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            {...register("password")}
-            type="password"
-            className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
-          />
-          {errors.password && (
-            <ErrorLabel>{errors.password.message}</ErrorLabel>
-          )}
-        </label>
-        <label>
-          <p>Confirm Password</p>
-          <input
-            {...register("confirmPassword")}
-            type="password"
-            className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC] decoration-none"
-          />
-          {errors.confirmPassword && (
-            <ErrorLabel>{errors.confirmPassword.message}</ErrorLabel>
-          )}
-          {!!getValues("confirmPassword") &&
-            getValues("password") !== getValues("confirmPassword") && (
-              <ErrorLabel>Password doesn&apos;t match</ErrorLabel>
-            )}
-        </label>
-        <Button
-          disabled={
-            signUpLoading ||
-            getValues("password") !== getValues("confirmPassword")
-          }
-          type="submit"
-          className="mt-4 py-7"
-        >
-          {signUpLoading ? <Loader2 className="animate-spin" /> : "Submit"}
-        </Button>
-        {signUpError && (
-          <p className="text-red-500 text-center">{signUpError.message}</p>
-        )}
-        <span>
-          Already have an account?{" "}
-          <Link className="text-blue-800 hover:underline" href={"/login"}>
-            Login
-          </Link>
-        </span>
-      </form>
-    </div>
-  );
+  return null;
+
+  // return (
+  //   <div className="min-h-screen grid place-content-center">
+  //     <Head>
+  //       <title>Sign Up</title>
+  //     </Head>
+  //     <form
+  //       onSubmit={handleSubmit(formHandler)}
+  //       className="w-[500px] my-10 h-fit flex flex-col gap-5 p-10 shadow-gray-600 shadow rounded"
+  //     >
+  //       <h1 className="text-3xl mb-3 font-bold">Sign Up</h1>
+  //       <label>
+  //         <p>Email</p>
+  //         <input
+  //           {...register("email")}
+  //           className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
+  //         />
+  //         {errors.email && <ErrorLabel>{errors.email.message}</ErrorLabel>}
+  //       </label>
+  //       <label>
+  //         <p>Username</p>
+  //         <input
+  //           {...register("username")}
+  //           className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
+  //         />
+  //         {errors.username && (
+  //           <ErrorLabel>{errors.username.message}</ErrorLabel>
+  //         )}
+  //       </label>
+  //       <label>
+  //         <p>Password</p>
+  //         <input
+  //           {...register("password")}
+  //           type="password"
+  //           className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC]"
+  //         />
+  //         {errors.password && (
+  //           <ErrorLabel>{errors.password.message}</ErrorLabel>
+  //         )}
+  //       </label>
+  //       <label>
+  //         <p>Confirm Password</p>
+  //         <input
+  //           {...register("confirmPassword")}
+  //           type="password"
+  //           className="border rounded outline-none py-3 px-5 w-full mt-3 border-[#CCC] decoration-none"
+  //         />
+  //         {errors.confirmPassword && (
+  //           <ErrorLabel>{errors.confirmPassword.message}</ErrorLabel>
+  //         )}
+  //         {!!getValues("confirmPassword") &&
+  //           getValues("password") !== getValues("confirmPassword") && (
+  //             <ErrorLabel>Password doesn&apos;t match</ErrorLabel>
+  //           )}
+  //       </label>
+  //       <Button
+  //         disabled={
+  //           signUpLoading ||
+  //           getValues("password") !== getValues("confirmPassword")
+  //         }
+  //         type="submit"
+  //         className="mt-4 py-7"
+  //       >
+  //         {signUpLoading ? <Loader2 className="animate-spin" /> : "Submit"}
+  //       </Button>
+  //       {signUpError && (
+  //         <p className="text-red-500 text-center">{signUpError.message}</p>
+  //       )}
+  //       <span>
+  //         Already have an account?{" "}
+  //         <Link className="text-blue-800 hover:underline" href={"/login"}>
+  //           Login
+  //         </Link>
+  //       </span>
+  //     </form>
+  //   </div>
+  // );
 }

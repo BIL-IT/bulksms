@@ -1710,6 +1710,26 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@json2csv/formatters@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@json2csv/formatters/-/formatters-7.0.6.tgz#a4f21daa9d64d6da9a297f7d7b97ba517870f780"
+  integrity sha512-hjIk1H1TR4ydU5ntIENEPgoMGW+Q7mJ+537sDFDbsk+Y3EPl2i4NfFVjw0NJRgT+ihm8X30M67mA8AS6jPidSA==
+
+"@json2csv/node@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@json2csv/node/-/node-7.0.6.tgz#90b0b1f301f73bcd1325d02aded86844dc27c614"
+  integrity sha512-J3AX8cDBeQyriJj0oFxJot52hScUN4hhUBRnUGIPt+yI1YpwUuftriJi1RJS60Uz6Stce1sewHeG56dBc9/XGg==
+  dependencies:
+    "@json2csv/plainjs" "^7.0.6"
+
+"@json2csv/plainjs@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@json2csv/plainjs/-/plainjs-7.0.6.tgz#e4149b26ec6f1c59a27c72534a91e971be397098"
+  integrity sha512-4Md7RPDCSYpmW1HWIpWBOqCd4vWfIqm53S3e/uzQ62iGi7L3r34fK/8nhOMEe+/eVfCx8+gdSCt1d74SlacQHw==
+  dependencies:
+    "@json2csv/formatters" "^7.0.6"
+    "@streamparser/json" "^0.0.20"
+
 "@kamilkisiela/fast-url-parser@^1.1.4":
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@kamilkisiela/fast-url-parser/-/fast-url-parser-1.1.4.tgz#9d68877a489107411b953c54ea65d0658b515809"
@@ -2542,6 +2562,11 @@
   integrity sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==
   dependencies:
     "@sinonjs/commons" "^3.0.0"
+
+"@streamparser/json@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@streamparser/json/-/json-0.0.20.tgz#28c0255dea8d37f5d679d72c361f01edf70a770a"
+  integrity sha512-VqAAkydywPpkw63WQhPVKCD3SdwXuihCUVZbbiY3SfSTGQyHmwRoq27y4dmJdZuJwd5JIlQoMPyGvMbUPY0RKQ==
 
 "@swc/helpers@0.5.2":
   version "0.5.2"
@@ -4408,6 +4433,11 @@ dataloader@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.2.2.tgz#216dc509b5abe39d43a9b9d97e6e5e473dfbe3e0"
   integrity sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==
+
+date-fns@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
+  integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
 
 debounce@^1.2.0:
   version "1.2.1"
@@ -7876,6 +7906,11 @@ raw-body@2.5.2:
     http-errors "2.0.0"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+react-day-picker@^8.10.1:
+  version "8.10.1"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-8.10.1.tgz#4762ec298865919b93ec09ba69621580835b8e80"
+  integrity sha512-TMx7fNbhLk15eqcMt+7Z7S2KF7mfTId/XJDjKE8f+IUcFn0l08/kI4FiYTL/0yuOLmEcbR4Fwe3GJf/NiiMnPA==
 
 react-dom@^18:
   version "18.2.0"
