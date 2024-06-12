@@ -206,7 +206,7 @@ export default function GenerateReportComponent() {
                 )}
               </Button>
               {ReportData?.generateReport && (
-                <Button variant={"link"} onClick={handleDownload}>
+                <Button type="button" variant={"link"} onClick={handleDownload}>
                   Download
                 </Button>
               )}
