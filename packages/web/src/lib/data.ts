@@ -6,7 +6,7 @@ type Message = {
   Status: string;
 };
 
-export const messagess: Message[] =
+export const dummy_messages: Message[] =
   // [
   //   {
   //     id: "728ed52f",

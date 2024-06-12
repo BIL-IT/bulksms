@@ -13,21 +13,23 @@ export class GenerateReportService {
   async generateReport(
     startDate: Date,
     endDate: Date,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     status: string[],
   ): Promise<string> {
     await delay(1500);
     try {
       const fields = ['id', 'time', 'sender', 'phone', 'content', 'status'];
       const sms = await this.prisma.sms.findMany({
+        orderBy: {
+          time: 'desc',
+        },
         where: {
           time: {
             gte: startDate,
             lte: endDate,
           },
-          // status: {
-          //   in: status,
-          // },
+          status: {
+            in: status,
+          },
         },
       });
       const parser = new AsyncParser({ fields });

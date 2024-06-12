@@ -201,7 +201,7 @@ export const scheduledJobsCol: ColumnDef<ScheduledJobs>[] = [
             >
               Edit
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="w-[700px]">
               <DialogHeader>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <DialogTitle>Are you absolutely sure?</DialogTitle>

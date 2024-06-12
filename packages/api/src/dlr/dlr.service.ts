@@ -1,6 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+const dlrCodes = {
+  '1': 'Delivered',
+  '2': 'Non-Delivered to Phone',
+  '4': 'Queued on SMSC',
+  '8': 'Delivered',
+  '16': 'Non-Delivered to SMSC.',
+  '17': 'Invalid Format',
+  '18': 'Failed',
+};
+
 @Injectable()
 export class DlrService {
   constructor(private prisma: PrismaService) {}
@@ -18,7 +28,6 @@ export class DlrService {
     });
 
     console.log(storedMessage);
-    
 
     if (storedMessage) {
       const updatedMessage = await this.prisma.sms.update({
@@ -26,7 +35,7 @@ export class DlrService {
           id: message_id,
         },
         data: {
-          status: report,
+          status: dlrCodes[report as keyof typeof dlrCodes],
         },
       });
 
@@ -41,7 +50,7 @@ export class DlrService {
           id: message_id,
           phone: recipient,
           sender: 'BIL',
-          status: report,
+          status: dlrCodes[report as keyof typeof dlrCodes],
         },
       });
 

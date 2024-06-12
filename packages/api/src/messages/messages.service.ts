@@ -46,7 +46,7 @@ export class MessagesService {
             content: message,
             phone: number,
             sender,
-            status: '17',
+            status: 'Invalid Format',
           },
         });
 
@@ -66,7 +66,7 @@ export class MessagesService {
             content: message,
             phone: acceptedNumber,
             sender,
-            status: '18',
+            status: 'Failed',
           },
         });
       }

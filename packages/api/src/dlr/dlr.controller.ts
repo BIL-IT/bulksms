@@ -14,12 +14,10 @@ export class DlrController {
   constructor(private dlrService: DlrService) {}
   @Get('')
   async handleDLR(@Req() request: Request, @Res() response: Response) {
-    
     try {
       const queries = { ...request.query };
 
       console.log(queries);
-      
 
       const message_id = queries['message_id'] as string;
       const report = queries['report'] as string;

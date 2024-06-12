@@ -103,7 +103,7 @@ export default function ScheduledMessagesComponent() {
                 >
                   Add Field
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="w-[700px]">
                   <DialogHeader>
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <DialogTitle>Add a New Record?</DialogTitle>

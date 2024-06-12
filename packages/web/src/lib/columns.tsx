@@ -128,21 +128,10 @@ export const columns: ColumnDef<Message>[] = [
       );
     },
     filterFn: (row, id, value: string[]) => {
-      console.log(value);
-
-      if (value.includes("1")) {
-        // value.push("8");
-        return [...value, "8"].includes(row.getValue(id));
-      }
       return value.includes(row.getValue(id));
-      // return true;
     },
     cell(props) {
-      return (
-        <div className="flex-1 w-fit">
-          {dlrCodes[props.getValue() as keyof typeof dlrCodes]}
-        </div>
-      );
+      return <div className="flex-1 w-fit">{props.getValue() as string}</div>;
     },
   },
   // {

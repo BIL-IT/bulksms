@@ -10,6 +10,9 @@ import {
   MailCheck,
   Ban,
   TicketX,
+  TicketSlash,
+  TicketMinus,
+  CircleDashed,
 } from "lucide-react";
 
 export const labels = [
@@ -30,18 +33,33 @@ export const labels = [
 export const statuses = [
   {
     label: "Delivered",
-    value: "1",
+    value: "Delivered",
     icon: MailCheck,
   },
   {
     label: "Failed",
-    value: "18",
+    value: "Failed",
     icon: Ban,
   },
   {
     label: "Invalid Format",
-    value: "17",
+    value: "Invalid Format",
     icon: TicketX,
+  },
+  {
+    label: "Non-Delivered to Phone",
+    value: "Non-Delivered to Phone",
+    icon: TicketSlash,
+  },
+  {
+    label: "Non-Delivered to SMSC",
+    value: "Non-Delivered to SMSC",
+    icon: TicketMinus,
+  },
+  {
+    label: "Queued on SMSC",
+    value: "Queued on SMSC",
+    icon: CircleDashed,
   },
   // {
   //   value: "done",
