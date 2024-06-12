@@ -1,7 +1,6 @@
 import { DataTable } from "@/components/DataTable/DataTableComponent";
 import { useGetAllSmsQuery, useMeQuery } from "@/generated/graphql";
 import { columns } from "@/lib/columns";
-import { messagess } from "@/lib/data";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import * as Lucide from "lucide-react";
