@@ -14,7 +14,7 @@ export class SmsClientService {
     );
     try {
       const res = await fetch(
-        `http://localhost:13013/cgi-bin/sendsms?username=sms&password=sms123&to=${to}&from=${from ?? 'BIL'}&text=${content}&dlr-mask=31&dlr-url=${encodedURL}`,
+        `http://localhost:13013/cgi-bin/sendsms?username=sms&password=sms123&smsc=${to.startsWith('17') ? 'BIL' : 'TBIL'}&to=${to}&from=${from ?? 'BIL'}&text=${content}&dlr-mask=31&dlr-url=${encodedURL}`,
       );
 
       const status = await res.text();
