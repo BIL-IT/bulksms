@@ -133,7 +133,7 @@ export const columns: ColumnDef<Message>[] = [
     cell(props) {
       return (
         <div
-          className={`flex-1 w-fit text-center text-white rounded py-2 px-3 font-semibold ${(props.getValue() as string) === "Delivered" ? "bg-green-500" : "bg-red-500"}`}
+          className={`flex-1 mx-auto w-fit text-xs text-center text-white rounded p-2 font-semibold ${(props.getValue() as string) === "Delivered" ? "bg-green-500" : "bg-red-500"}`}
         >
           {props.getValue() as string}
         </div>
