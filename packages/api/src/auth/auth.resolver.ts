@@ -8,6 +8,7 @@ import { CurrentUserDetail } from './output/current-user.model';
 import { CurrentUser } from './curret-user.decorator';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
+import { ChangePasswordInput } from './input/change-password.input';
 // import { z } from 'zod';
 
 @Resolver()
@@ -27,6 +28,21 @@ export class AuthResolver {
     // };
 
     return user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Mutation(() => String)
+  async changePassword(
+    @Args('changePasswordInput') changePasswordInput: ChangePasswordInput,
+    @CurrentUser() { user }: { user: CurrentUserDetail },
+  ) {
+    const updatedPassword = await this.authService.changePassword(
+      changePasswordInput.oldPassword,
+      changePasswordInput.newPassword,
+      user.username,
+    );
+
+    return updatedPassword;
   }
 
   @Mutation(() => SuccessMessage)
@@ -58,6 +74,7 @@ export class AuthResolver {
       signupDetails.email,
       signupDetails.username,
       signupDetails.password,
+      signupDetails.department,
     );
 
     res.cookie('auth', token, {

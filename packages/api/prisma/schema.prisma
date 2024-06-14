@@ -13,11 +13,12 @@ datasource db {
 }
 
 model User {
-  id       String @id
-  username String @unique
-  email    String @unique
-  hash     String
-  role     Role   @default(USER)
+  id         String @id
+  username   String @unique
+  email      String @unique
+  hash       String
+  department String @default("")
+  role       Role   @default(USER)
 }
 
 enum Role {
@@ -26,12 +27,15 @@ enum Role {
 }
 
 model Sms {
-  id      String   @id
-  time    DateTime @default(now())
-  sender  String   @default("System")
-  phone   String
-  content String
-  status  String?
+  id         String   @id
+  time       DateTime @default(now())
+  sender     String   @default("System")
+  branchCode String   @default("")
+  partyCode  String   @default("")
+  phone      String
+  content    String
+  status     String?
+  
 }
 
 model Cron {

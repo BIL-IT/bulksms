@@ -68,7 +68,7 @@ export default function GenerateReportComponent() {
     tempLink.href = csvURL;
     tempLink.setAttribute(
       "download",
-      `BIL-SMS-REPORT-${new Date().toISOString()}.csv`
+      `BIL-SMS-REPORT-${new Date().toLocaleString("sv").split(" ").join("@")}.csv`
     );
     tempLink.click();
   }

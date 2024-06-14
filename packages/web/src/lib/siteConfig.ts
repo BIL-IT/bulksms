@@ -104,4 +104,38 @@ export const siteConfig = {
 
     return list;
   },
+
+  getDepartmentList: () => {
+    const list = [
+      "Department",
+      "Management",
+      "CSPD",
+      "Claims",
+      "IT",
+      "Company Secretary",
+      "Underwriting",
+      "Wangdue Branch",
+      "p/Ling Branch",
+      "Paro Branch",
+      "Bumthang Extension Office",
+      "Procurement",
+      "Audit",
+      "Finance and Investment",
+      "ADM/HRD",
+      "Re-insurance",
+      "S/J extension",
+      "Finance and Accounts",
+      "Information Technology",
+      "wangdue",
+      "Paro",
+      "p/ling",
+      "Gelephu",
+      "Finance &amp; Investment",
+      "Finance &amp; Accounts",
+      "Monger",
+      "S/J",
+    ];
+
+    return list;
+  },
 };

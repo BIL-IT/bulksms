@@ -47,14 +47,14 @@ export default function SignUpPageComponent() {
   const [signUpMutation, { loading: signUpLoading, error: signUpError }] =
     useSignUpMutation();
 
-  function formHandler(data: z.infer<typeof signUpSchema>) {
-    const { confirmPassword, ...finalDetails } = data;
-    signUpMutation({
-      variables: {
-        signupDetails: finalDetails,
-      },
-    }).then(() => router.push("/"));
-  }
+  // function formHandler(data: z.infer<typeof signUpSchema>) {
+  //   const { confirmPassword, ...finalDetails } = data;
+  //   signUpMutation({
+  //     variables: {
+  //       signupDetails: finalDetails,
+  //     },
+  //   }).then(() => router.push("/"));
+  // }
 
   return null;
 

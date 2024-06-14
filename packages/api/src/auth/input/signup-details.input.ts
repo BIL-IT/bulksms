@@ -10,4 +10,7 @@ export class SignupDetails {
 
   @Field()
   password: string;
+
+  @Field()
+  department: string;
 }

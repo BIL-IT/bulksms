@@ -19,8 +19,9 @@ export class AuthService {
     email: string,
     username: string,
     password: string,
+    department: string,
   ): Promise<string> {
-    // await delay(2000);
+    await delay(2000);
     try {
       const user = await this.prisma.user.create({
         data: {
@@ -28,6 +29,7 @@ export class AuthService {
           id: crypto.randomUUID(),
           hash: await argon.hash(password),
           username,
+          department,
         },
       });
       if (!user) throw new Error('Failed to Create an Account');
@@ -60,6 +62,40 @@ export class AuthService {
       if (user) throw new Error('Username already exists');
 
       throw new Error('Something went wrong :/');
+    }
+  }
+
+  async changePassword(
+    oldPassword: string,
+    newPassword: string,
+    username: string,
+  ) {
+    try {
+      const user = await this.prisma.user.findFirst({
+        where: {
+          username,
+        },
+      });
+
+      if (!user) throw new Error('Please try again later');
+
+      const verify = await argon.verify(user.hash, oldPassword);
+      if (!verify) throw new Error("Old password doesn't match");
+
+      const updatedPassword = await this.prisma.user.update({
+        where: {
+          username,
+        },
+        data: {
+          hash: await argon.hash(newPassword),
+        },
+      });
+
+      if (!updatedPassword) throw new Error('Please try again later');
+
+      return 'Success';
+    } catch (error) {
+      throw new Error(error);
     }
   }
 

@@ -15,7 +15,6 @@ export class GenerateReportService {
     endDate: Date,
     status: string[],
   ): Promise<string> {
-    await delay(1500);
     try {
       const fields = ['id', 'time', 'sender', 'phone', 'content', 'status'];
       const sms = await this.prisma.sms.findMany({
@@ -36,6 +35,8 @@ export class GenerateReportService {
 
       // const fieldNames = ['Name', 'Phone', 'Mobile', 'Email', 'Address', 'Notes'];
       const data = await parser.parse(sms).promise();
+      await delay(1000);
+
       // const base64 = this.base64_encode(data);
 
       return data;
