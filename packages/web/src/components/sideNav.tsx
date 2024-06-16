@@ -63,7 +63,7 @@ export default function SideNav() {
           <Image src={logo} alt="devlinks" width={60} height={40} />
           <h4 className="text-sm font-semibold"> - SMS SERVER</h4>
         </span>
-        <div className="flex flex-col gap-2 font-semibold">
+        <div className="flex flex-col gap-2">
           <h2 className="font-bold text-card mb-1">GENERAL</h2>
           {siteConfig.getNewHeaders().map((Header, index) => (
             <span

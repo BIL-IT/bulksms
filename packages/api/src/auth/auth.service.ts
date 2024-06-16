@@ -91,6 +91,11 @@ export class AuthService {
         },
       });
 
+      const sameAsOldPassword = await argon.verify(user.hash, newPassword);
+
+      if (sameAsOldPassword)
+        throw new Error('New password cannot be the same as old password');
+
       if (!updatedPassword) throw new Error('Please try again later');
 
       return 'Success';

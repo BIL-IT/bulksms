@@ -71,9 +71,9 @@ export default function ChangePasswordComponent() {
       });
   };
 
-  if (router.isReady && !data?.Me) router.push("/login");
-
   if (loading) return null;
+
+  if (router.isReady && !data?.Me) router.push("/login");
 
   return (
     data?.Me && (

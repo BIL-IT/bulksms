@@ -91,9 +91,9 @@ export default function AddUserComponent() {
       });
   };
 
-  if (router.isReady && !data?.Me) router.push("/login");
-
   if (loading) return null;
+
+  if (router.isReady && !data?.Me) router.push("/login");
 
   // const [addUser]
 
@@ -190,6 +190,7 @@ export default function AddUserComponent() {
                           <CommandItem
                             key={index}
                             value={department}
+                            {...register("department")}
                             onSelect={(currentValue) => {
                               setValue(
                                 "department",
