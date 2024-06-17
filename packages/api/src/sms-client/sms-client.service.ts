@@ -6,6 +6,7 @@ export class SmsClientService {
     const encodedMessage = encodeURI(message);
     const content = message + '\n\n -From Bhutan Insurance Limited';
     const uuid = crypto.randomUUID();
+    const recipientNumber = '975' + to;
     // const encodedURL = encodeURIComponent(
     //   `http://localhost:3001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
     // );
@@ -14,7 +15,7 @@ export class SmsClientService {
     );
     try {
       const res = await fetch(
-        `http://localhost:13013/cgi-bin/sendsms?smsc=${to.startsWith('17') ? 'BIL' : 'TBIL'}&username=sms&password=sms123&to=${to}&from=${from ?? 'BIL'}&text=${content}&dlr-mask=31&dlr-url=${encodedURL}`,
+        `http://localhost:13013/cgi-bin/sendsms?smsc=${to.startsWith('17') ? 'BIL' : 'TBIL'}&username=sms&password=sms123&to=${recipientNumber}&from=${from ?? 'BIL'}&text=${content}&dlr-mask=31&dlr-url=${encodedURL}`,
       );
 
       const status = await res.text();
