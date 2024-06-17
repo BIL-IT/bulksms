@@ -53,6 +53,12 @@ export type CurrentUserDetail = {
   username: Scalars['String']['output'];
 };
 
+export type KannelReport = {
+  __typename?: 'KannelReport';
+  bearerBoxReport: Scalars['Boolean']['output'];
+  sMSBoxReport: Scalars['Boolean']['output'];
+};
+
 export type LoginDetails = {
   emailOrUsername: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -127,6 +133,7 @@ export type Query = {
   GetAllSMS: Array<AllMessages>;
   Me: CurrentUserDetail;
   getAllScheduledJobs: Array<ScheduledJobsOutput>;
+  getReport: KannelReport;
 };
 
 export type ReportDetailsInput = {
@@ -171,6 +178,11 @@ export type ChangePasswordMutationVariables = Exact<{
 
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: string };
+
+export type KannelReportQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type KannelReportQuery = { __typename?: 'Query', getReport: { __typename?: 'KannelReport', bearerBoxReport: boolean, sMSBoxReport: boolean } };
 
 export type LoginMutationVariables = Exact<{
   loginDetails: LoginDetails;
@@ -273,6 +285,46 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const KannelReportDocument = gql`
+    query KannelReport {
+  getReport {
+    bearerBoxReport
+    sMSBoxReport
+  }
+}
+    `;
+
+/**
+ * __useKannelReportQuery__
+ *
+ * To run a query within a React component, call `useKannelReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKannelReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKannelReportQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useKannelReportQuery(baseOptions?: Apollo.QueryHookOptions<KannelReportQuery, KannelReportQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<KannelReportQuery, KannelReportQueryVariables>(KannelReportDocument, options);
+      }
+export function useKannelReportLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<KannelReportQuery, KannelReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<KannelReportQuery, KannelReportQueryVariables>(KannelReportDocument, options);
+        }
+export function useKannelReportSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<KannelReportQuery, KannelReportQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<KannelReportQuery, KannelReportQueryVariables>(KannelReportDocument, options);
+        }
+export type KannelReportQueryHookResult = ReturnType<typeof useKannelReportQuery>;
+export type KannelReportLazyQueryHookResult = ReturnType<typeof useKannelReportLazyQuery>;
+export type KannelReportSuspenseQueryHookResult = ReturnType<typeof useKannelReportSuspenseQuery>;
+export type KannelReportQueryResult = Apollo.QueryResult<KannelReportQuery, KannelReportQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($loginDetails: LoginDetails!) {
   Login(loginDetails: $loginDetails) {

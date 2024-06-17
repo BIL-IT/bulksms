@@ -71,7 +71,7 @@ export default function ComposeSmsComponent() {
 
   return (
     meData && (
-      <section className="flex justify-center flex-1 text-foreground">
+      <section className="flex justify-center py-14 flex-1 text-foreground">
         <form
           onSubmit={formHandler}
           className="w-full max-w-[1000px] min-h-[500px] my-5 h-fit shadow-lg border flex flex-col gap-5 border-[#CCC] rounded-md p-10"

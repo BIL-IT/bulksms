@@ -6,6 +6,7 @@ import type { AppProps } from "next/app";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import SideNav from "@/components/sideNav";
+import StatusComponent from "@/components/status";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState("light");
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main
         className={`${theme === "dark" && "dark"} text-foreground flex min-h-screen gap-7`}
       >
+        <StatusComponent />
         {/* <Navbar theme={theme} setTheme={setTheme} /> */}
         <SideNav />
         <Component {...pageProps} />

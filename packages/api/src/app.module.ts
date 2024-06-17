@@ -19,6 +19,8 @@ import { SendSmsService } from './send-sms/send-sms.service';
 import { SendOtpService } from './send-otp/send-otp.service';
 import { SendOtpModule } from './send-otp/send-otp.module';
 import { GenerateReportModule } from './generate-report/generate-report.module';
+import { KannelReportResolver } from './kannel-report/kannel-report.resolver';
+import { KannelReportService } from './kannel-report/kannel-report.service';
 
 @Module({
   imports: [
@@ -41,6 +43,6 @@ import { GenerateReportModule } from './generate-report/generate-report.module';
     GenerateReportModule,
   ],
   controllers: [AppController, DlrController, CronJobsController, SendSmsController],
-  providers: [AppService, SmsClientService, DlrService, CronJobsService, SendSmsService, SendOtpService],
+  providers: [AppService, SmsClientService, DlrService, CronJobsService, SendSmsService, SendOtpService, KannelReportResolver, KannelReportService],
 })
 export class AppModule {}
