@@ -144,6 +144,24 @@ export default function LoginPageComponent() {
             )}
           </div>
         </div>
+        {loginError?.message.toLowerCase().includes("fetch") && (
+          <div className="border flex flex-col gap-3 border-red-500 text-red-500 rounded p-3 text-center">
+            <h3>Unable to fetch?</h3>
+            <p className="text-sm">
+              Click the button below to add an exception to your browser and
+              come back!
+            </p>
+            <Link
+              href={"https://172.16.16.108:2001"}
+              target="_blank"
+              className=""
+            >
+              <Button type="button" variant="destructive" className="w-full">
+                Click here
+              </Button>
+            </Link>
+          </div>
+        )}
         <Button disabled={loginLoading} type="submit" className="mt-4 py-5">
           {loginLoading ? <Loader2 className="animate-spin" /> : "Submit"}
         </Button>
