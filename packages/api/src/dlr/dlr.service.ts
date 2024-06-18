@@ -6,7 +6,7 @@ const dlrCodes = {
   '2': 'Non-Delivered to Phone',
   '4': 'Queued on SMSC',
   '8': 'Delivered',
-  '16': 'Non-Delivered to SMSC.',
+  '16': 'Non-Delivered to SMSC',
   '17': 'Invalid Format',
   '18': 'Failed',
 };
