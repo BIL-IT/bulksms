@@ -72,7 +72,7 @@ export class CronJobsService implements OnModuleInit {
   // @Cron(CronExpression.EVERY_10_SECONDS, {
   //   name: 'Test',
   // })
-  @Cron('40 12 * * *', {
+  @Cron('55 12 * * *', {
     name: 'Renewal',
     timeZone: 'Asia/Thimphu',
   })
