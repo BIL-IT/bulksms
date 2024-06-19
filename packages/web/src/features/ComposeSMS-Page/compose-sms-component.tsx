@@ -13,6 +13,7 @@ import {
   useSendSmsMutation,
 } from "@/generated/graphql";
 import { Loader2 } from "lucide-react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -72,6 +73,9 @@ export default function ComposeSmsComponent() {
   return (
     meData && (
       <section className="flex justify-center py-14 flex-1 text-foreground">
+        <Head>
+          <title>Compose SMS</title>
+        </Head>
         <form
           onSubmit={formHandler}
           className="w-full max-w-[1000px] min-h-[500px] my-5 h-fit shadow-lg border flex flex-col gap-5 border-[#CCC] rounded-md p-10"

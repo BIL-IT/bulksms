@@ -12,6 +12,12 @@ export class AllMessages {
   sender: string;
 
   @Field()
+  branchCode: string;
+
+  @Field()
+  partyCode: string;
+
+  @Field()
   phone: string;
 
   @Field()

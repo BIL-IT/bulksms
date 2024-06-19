@@ -38,7 +38,7 @@ export default function BmobileOutgoingPage() {
     data && (
       <section className="bg-background flex-1">
         <Head>
-          <title>Home</title>
+          <title>B-Mobile Outgoing</title>
         </Head>
         <div className="flex justify-center py-7 min-h-full">
           <div className="xl:max-w-[1100px] 2xl:max-w-[1500px] w-full flex justify-center">

@@ -20,6 +20,13 @@ export class MessagesResolver {
     return messages;
   }
 
+  @Query(() => [AllMessages])
+  async GetAllDemoSMS(): Promise<AllMessages[]> {
+    const messages = await this.messagesService.GetAllDemoSMS();
+
+    return messages;
+  }
+
   @UseGuards(AuthGuard)
   @Mutation(() => SuccessMessageInput)
   async SendSMS(

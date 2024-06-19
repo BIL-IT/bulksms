@@ -23,12 +23,16 @@ export class DlrController {
       const report = queries['report'] as string;
       const recipient = queries['recipient'] as string;
       const message = queries['message'] as string;
+      const branchCode = queries['branch_code'] as string | null | undefined;
+      const partyCode = queries['party_code'] as string | null | undefined;
 
       const storeMessage = await this.dlrService.handleDLR(
         report,
         message_id,
         recipient,
         message,
+        branchCode,
+        partyCode,
       );
 
       if (!storeMessage) {

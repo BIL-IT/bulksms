@@ -20,6 +20,8 @@ export class DlrService {
     message_id: string,
     recipient: string,
     message: string,
+    branchCode: string | null | undefined,
+    partyCode: string | null | undefined,
   ) {
     const storedMessage = await this.prisma.sms.findFirst({
       where: {
@@ -51,6 +53,8 @@ export class DlrService {
           phone: recipient,
           sender: 'BIL',
           status: dlrCodes[report as keyof typeof dlrCodes],
+          partyCode: partyCode || '',
+          branchCode: branchCode || '',
         },
       });
 

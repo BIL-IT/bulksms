@@ -1,13 +1,20 @@
 import { DataTable } from "@/components/DataTable/DataTableComponent";
-import { useGetAllSmsQuery, useMeQuery } from "@/generated/graphql";
+import {
+  useGetAllDemoSmsQuery,
+  useGetAllSmsQuery,
+  useMeQuery,
+} from "@/generated/graphql";
 import { columns } from "@/lib/columns";
 import Head from "next/head";
-import router from "next/router";
+import { useRouter } from "next/router";
 import * as Lucide from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
+import { demoColumns } from "@/lib/demoColumns";
 
-export default function TcellOutgoingPage() {
+export default function Demo() {
+  const router = useRouter();
+
   const {
     data: meData,
     loading: meLoading,
@@ -20,14 +27,14 @@ export default function TcellOutgoingPage() {
     loading,
     error,
     refetch: refetchData,
-  } = useGetAllSmsQuery({
+  } = useGetAllDemoSmsQuery({
     pollInterval: 10000,
   });
 
+  const dateSchema = z.coerce.date();
   const [searchField, setSearchField] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const dateSchema = z.coerce.date();
 
   if (meLoading) return;
 
@@ -38,11 +45,19 @@ export default function TcellOutgoingPage() {
     data && (
       <section className="bg-background flex-1">
         <Head>
-          <title>TashiCell Outgoing</title>
+          <title>Home</title>
         </Head>
         <div className="flex justify-center py-7 min-h-full">
           <div className="xl:max-w-[1100px] 2xl:max-w-[1500px] w-full flex justify-center">
             <div className="xl:max-w-[1000px] 2xl:max-w-[1300px] flex flex-col gap-4">
+              {/* <div className="w-full flex items-end justify-between">
+                <button
+                  onClick={() => refetchData()}
+                  className="shadow-sm active:bg-card-foreground active:text-card shadow-primary p-3 rounded [&>*]:focus-within:animate-spin-once"
+                >
+                  <Lucide.RefreshCcw className="text-sm" />{" "}
+                </button>
+              </div> */}
               <DataTable
                 fromDate={fromDate}
                 searchField={searchField}
@@ -50,17 +65,14 @@ export default function TcellOutgoingPage() {
                 setSearchField={setSearchField}
                 setToDate={setToDate}
                 toDate={toDate}
-                columns={columns}
-                data={data.GetAllSMS.filter((prev) =>
-                  prev.phone.startsWith("77")
+                columns={demoColumns}
+                data={data.GetAllDemoSMS.filter(
+                  (prev) =>
+                    prev.phone.includes(searchField) ||
+                    prev.content
+                      .toLowerCase()
+                      .includes(searchField.toLowerCase())
                 )
-                  .filter(
-                    (prev) =>
-                      prev.phone.includes(searchField) ||
-                      prev.content
-                        .toLowerCase()
-                        .includes(searchField.toLowerCase())
-                  )
                   .filter((prev) => {
                     if (!fromDate) return true;
                     else {

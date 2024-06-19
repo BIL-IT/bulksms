@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorLabel from "@/components/errorLabel";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const passwordSchema = z.object({
   oldPassword: z.string().min(1, {
@@ -78,6 +79,9 @@ export default function ChangePasswordComponent() {
   return (
     data?.Me && (
       <div className="flex justify-center items-center h-screen flex-1 ">
+        <Head>
+          <title>Change Password</title>
+        </Head>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-auto p-6 border-2 shadow-lg bg-white rounded-md pl-8"

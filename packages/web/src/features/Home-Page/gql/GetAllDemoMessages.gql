@@ -1,5 +1,5 @@
-query GetAllSMS {
-  GetAllSMS {
+query GetAllDemoSMS {
+  GetAllDemoSMS {
     id
     time
     sender

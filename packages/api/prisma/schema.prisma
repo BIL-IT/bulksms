@@ -35,7 +35,17 @@ model Sms {
   phone      String
   content    String
   status     String?
-  
+}
+
+model DemoSms {
+  id         String   @id
+  time       DateTime @default(now())
+  sender     String   @default("System")
+  branchCode String   @default("")
+  partyCode  String   @default("")
+  phone      String
+  content    String
+  status     String?
 }
 
 model Cron {

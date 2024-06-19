@@ -8,6 +8,8 @@ import { SmsClientService } from 'src/sms-client/sms-client.service';
 type InsurancePolicyRenewalExpiry = {
   phone_no: string;
   message: string;
+  branch_code: string;
+  business_code: string;
 };
 
 const testData = [
@@ -29,7 +31,9 @@ const testData = [
 ] as InsurancePolicyRenewalExpiry[];
 
 const API =
-  'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_expirytoday_sms';
+  'https://172.16.16.155/api/insurance_policy_renewal_14daysbefore_sms';
+// 'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_14daysbefore_sms';
+// 'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_expirytoday_sms';
 
 @Injectable()
 export class CronJobsService implements OnModuleInit {
@@ -65,31 +69,58 @@ export class CronJobsService implements OnModuleInit {
     // const cron = this.schedulerRegistry.addCronJob(name, job);
   }
 
-  @Cron('40 14 * * 0', {
+  // @Cron(CronExpression.EVERY_10_SECONDS, {
+  //   name: 'Test',
+  // })
+  @Cron('30 11 * * *', {
     name: 'Renewal',
     timeZone: 'Asia/Thimphu',
   })
   async scheduledJobs() {
-    // const res = await fetch(API);
-    // const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
-    const data = testData;
-
-    data.forEach((datum) => {
-      datum.phone_no.split('/').forEach(async (phone_no) => {
-        if (phone_no) {
-          try {
-            const messageSent = await this.smsClientService.sendMessage(
-              phone_no,
-              datum.message,
-            );
-
-            if (!messageSent) throw new Error('Unable to send message');
-          } catch (error) {
-            throw new Error(error);
-          }
-        }
+    try {
+      const res = await fetch(API, {
+        mode: 'no-cors',
       });
-    });
+      const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+      // const data = testData;
+
+      data.forEach((datum) => {
+        datum.phone_no.split('/').forEach(async (phone_no) => {
+          if (phone_no) {
+            try {
+              // const messageSent = await this.smsClientService.sendMessage(
+              //   phone_no,
+              //   datum.message,
+              // );
+              // if (!messageSent) throw new Error('Unable to send message');
+
+              console.log({
+                phone_no,
+                message: datum.message,
+                branchCode: datum.branch_code,
+                partyCode: datum.business_code,
+              });
+
+              await this.prisma.demoSms.create({
+                data: {
+                  content: datum.message,
+                  id: crypto.randomUUID(),
+                  phone: phone_no,
+                  branchCode: datum.branch_code,
+                  partyCode: datum.business_code,
+                  sender: 'BIL',
+                  status: 'Delivered',
+                },
+              });
+            } catch (error) {
+              throw new Error(error);
+            }
+          }
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     // console.log('HEllo from CRon');
   }

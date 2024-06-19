@@ -63,34 +63,23 @@ export default function SideNav() {
           <Image src={logo} alt="devlinks" width={60} height={40} />
           <h4 className="text-sm font-semibold"> - SMS SERVER</h4>
         </span>
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-card mb-1">GENERAL</h2>
-          {siteConfig.getNewHeaders().map((Header, index) => (
-            <span
-              key={index}
-              className={`flex items-center rounded p-2 gap-2 ${"/" + dir === Header.href ? "bg-card text-black" : "text-muted-foreground"}`}
-            >
-              <Header.Icon />
+        <div className="flex flex-col gap-4 ">
+          {siteConfig.getFinalHeaders().map((obj, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <h1 className="font-bold text-card mb-1">{obj.title}</h1>
+              {obj.subHeader.map((subObj, subIndex) => (
+                <span
+                  key={subIndex}
+                  className={`flex items-center rounded p-2 gap-2 ${"/" + dir === subObj.href ? "bg-card text-black" : "text-muted-foreground"}`}
+                >
+                  <subObj.Icon />
 
-              <Link href={Header.href} className="w-full">
-                {Header.title}
-              </Link>
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-card mb-1">SETTINGS</h2>
-          {siteConfig.getNewSecondaryHeaders().map((Header, index) => (
-            <span
-              key={index}
-              className={`flex items-center rounded p-2 gap-2 ${"/" + dir === Header.href ? "bg-card text-black" : "text-muted-foreground"}`}
-            >
-              <Header.Icon />
-
-              <Link href={Header.href} className="w-full">
-                {Header.title}
-              </Link>
-            </span>
+                  <Link href={subObj.href} className="w-full">
+                    {subObj.title}
+                  </Link>
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>

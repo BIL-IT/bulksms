@@ -23,6 +23,7 @@ import ErrorLabel from "@/components/errorLabel";
 import { useMeQuery, useSignUpMutation } from "@/generated/graphql";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const userSchema = z.object({
   username: z.string().min(1, {
@@ -99,6 +100,9 @@ export default function AddUserComponent() {
 
   return (
     <div className="flex justify-center items-center min-h-screen py-10 flex-1 ">
+      <Head>
+        <title>Add User</title>
+      </Head>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-auto p-6 border-2 shadow-lg bg-white rounded-md"

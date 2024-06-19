@@ -42,7 +42,21 @@ import { KannelReportService } from './kannel-report/kannel-report.service';
     SendOtpModule,
     GenerateReportModule,
   ],
-  controllers: [AppController, DlrController, CronJobsController, SendSmsController],
-  providers: [AppService, SmsClientService, DlrService, CronJobsService, SendSmsService, SendOtpService, KannelReportResolver, KannelReportService],
+  controllers: [
+    AppController,
+    DlrController,
+    CronJobsController,
+    SendSmsController,
+  ],
+  providers: [
+    AppService,
+    SmsClientService,
+    DlrService,
+    CronJobsService,
+    SendSmsService,
+    SendOtpService,
+    KannelReportResolver,
+    KannelReportService,
+  ],
 })
 export class AppModule {}
