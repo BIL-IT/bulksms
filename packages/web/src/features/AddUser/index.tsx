@@ -49,7 +49,9 @@ export default function AddUserComponent() {
 
   const router = useRouter();
 
-  const { data, error, loading } = useMeQuery();
+  const { data, error, loading } = useMeQuery({
+    pollInterval: 10000,
+  });
 
   const {
     register,

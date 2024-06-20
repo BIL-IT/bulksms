@@ -39,7 +39,9 @@ export default function ChangePasswordComponent() {
 
   watch();
 
-  const { data, error, loading } = useMeQuery();
+  const { data, error, loading } = useMeQuery({
+    pollInterval: 10000,
+  });
 
   const [
     changePasswordMutation,

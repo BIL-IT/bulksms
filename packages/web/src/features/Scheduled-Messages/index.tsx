@@ -34,7 +34,9 @@ export default function ScheduledMessagesComponent() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery();
+  } = useMeQuery({
+    pollInterval: 10000,
+  });
 
   const { data, loading, error, refetch } = useScheduledJobsQuery();
 

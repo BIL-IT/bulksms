@@ -4,6 +4,7 @@ import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
 import { MessagesService } from 'src/messages/messages.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SmsClientService } from 'src/sms-client/sms-client.service';
+import * as argon from 'argon2';
 
 type InsurancePolicyRenewalExpiry = {
   phone_no: string;
@@ -12,28 +13,17 @@ type InsurancePolicyRenewalExpiry = {
   business_code: string;
 };
 
-const testData = [
-  {
-    phone_no: '17439160/77360762',
-    message:
-      'Message Dear Tenzin (Test) , your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
-  },
-  {
-    phone_no: '17949827/77853865',
-    message:
-      'Message Dear Govinda Parsad Sharma, your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
-  },
-  {
-    phone_no: '17688382/17801773',
-    message:
-      'Message Dear Govinda Parsad Sharma, your Motor insurance policy no 91819494 bearing vehicle No BP-2-A5443 is due for renewal on 09/06/2024. Renew today to maintain continuous coverage and uninterrupted protection. Use mBIL apps to pay your premium or contact our renewal focal person at 17745138/17773589 to renew your policy via any other banking apps.',
-  },
-] as InsurancePolicyRenewalExpiry[];
-
-const API =
+const RENEWAL_14_DAYS_BEFORE_API =
   'https://172.16.16.155/api/insurance_policy_renewal_14daysbefore_sms';
-// 'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_14daysbefore_sms';
-// 'http://172.16.16.191:8090/InsuranceSystem/api/insurance_policy_renewal_expirytoday_sms';
+
+const RENEWAL_EXPIRY_API =
+  'https://172.16.16.155/api/insurance_policy_renewal_expirytoday_sms';
+
+const RENEWAL_5_DAYS_BEFORE_API =
+  'https://172.16.16.155/api/insurance_policy_renewal_5daysbefore_sms';
+
+const RENEWAL_ACKNOWLEDGEMENT_API =
+  'https://172.16.16.155/api/insurance_policy_renewal_acknowledge_sms';
 
 @Injectable()
 export class CronJobsService implements OnModuleInit {
@@ -72,60 +62,138 @@ export class CronJobsService implements OnModuleInit {
   // @Cron(CronExpression.EVERY_10_SECONDS, {
   //   name: 'Test',
   // })
-  @Cron('55 12 * * *', {
-    name: 'Renewal',
+  @Cron('0 8 * * *', {
+    name: 'Renewal 14 Days Before',
     timeZone: 'Asia/Thimphu',
   })
-  async scheduledJobs() {
-    try {
-      const res = await fetch(API, {
-        mode: 'no-cors',
+  async scheduledRenewal14() {
+    const res = await fetch(RENEWAL_14_DAYS_BEFORE_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            datum.branch_code,
+            datum.business_code,
+          );
+        }
       });
-      const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
-      // const data = testData;
-
-      data.forEach((datum) => {
-        datum.phone_no.split('/').forEach(async (phone_no) => {
-          if (phone_no) {
-            try {
-              // const messageSent = await this.smsClientService.sendMessage(
-              //   phone_no,
-              //   datum.message,
-              // );
-              // if (!messageSent) throw new Error('Unable to send message');
-
-              console.log({
-                phone_no,
-                message: datum.message,
-                branchCode: datum.branch_code,
-                partyCode: datum.business_code,
-              });
-
-              await this.prisma.demoSms.create({
-                data: {
-                  content: datum.message,
-                  id: crypto.randomUUID(),
-                  phone: phone_no,
-                  branchCode: datum.branch_code,
-                  partyCode: datum.business_code,
-                  sender: 'BIL',
-                  status: 'Delivered',
-                },
-              });
-            } catch (error) {
-              throw new Error(error);
-            }
-          }
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    // console.log('HEllo from CRon');
+    });
   }
 
-  onModuleInit() {
-    this.restartAllJobs();
+  // @Cron(CronExpression.EVERY_5_SECONDS, {
+  //   name: 'Test2',
+  // })
+  @Cron('2 8 * * *', {
+    name: 'Renewal 5 Days Before',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledRenewal5() {
+    const res = await fetch(RENEWAL_5_DAYS_BEFORE_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            datum.branch_code,
+            datum.business_code,
+          );
+        }
+      });
+    });
+  }
+
+  @Cron('4 8 * * *', {
+    name: 'Expiry',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledExpiry() {
+    const res = await fetch(RENEWAL_EXPIRY_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            datum.branch_code,
+            datum.business_code,
+          );
+        }
+      });
+    });
+  }
+
+  @Cron('6 8 * * *', {
+    name: 'Acknowledgement',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledAcknowledgement() {
+    const res = await fetch(RENEWAL_ACKNOWLEDGEMENT_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            datum.branch_code,
+            datum.business_code,
+          );
+        }
+      });
+    });
+  }
+
+  async onModuleInit() {
+    await this.restartAllJobs();
   }
 }

@@ -16,7 +16,16 @@ export class GenerateReportService {
     status: string[],
   ): Promise<string> {
     try {
-      const fields = ['id', 'time', 'sender', 'phone', 'content', 'status'];
+      const fields = [
+        'id',
+        'time',
+        'sender',
+        'branchCode',
+        'partyCode',
+        'phone',
+        'content',
+        'status',
+      ];
       const sms = await this.prisma.sms.findMany({
         orderBy: {
           time: 'desc',

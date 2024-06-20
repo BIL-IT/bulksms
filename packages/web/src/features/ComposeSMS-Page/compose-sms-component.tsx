@@ -40,7 +40,9 @@ export default function ComposeSmsComponent() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery();
+  } = useMeQuery({
+    pollInterval: 10000,
+  });
 
   const [sendSmsMutation, { loading: sendSmsLoading, error }] =
     useSendSmsMutation();
@@ -154,9 +156,9 @@ export default function ComposeSmsComponent() {
 
           <Button
             disabled={sendSmsLoading || !detail.numbers || !detail.message}
-            className="mt-3 py-7"
+            className="mt-3 py-7 flex justify-center items-center"
           >
-            Submit
+            {sendSmsLoading ? <Loader2 className="animate-spin" /> : "Submit"}
           </Button>
         </form>
       </section>
