@@ -57,6 +57,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     branchCode: false,
     partyCode: false,
+    sender: false,
   });
 
   const table = useReactTable({
