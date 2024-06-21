@@ -7,6 +7,8 @@ export type Message = {
   id: string;
   time: string;
   phone: string;
+  branchCode: string;
+  partyCode: string;
   content: string;
   status: string;
 };
@@ -26,6 +28,7 @@ export const columns: ColumnDef<Message>[] = [
     accessorKey: "id",
     header: "No.",
     cell: (props) => <p>{props.row.index + 1}</p>,
+    enableHiding: false,
   },
   {
     accessorKey: "time",
@@ -45,6 +48,7 @@ export const columns: ColumnDef<Message>[] = [
     cell(props) {
       return new Date(props.getValue() as string).toString().split("GMT")[0];
     },
+    enableHiding: false,
   },
   {
     accessorKey: "sender",
@@ -61,6 +65,14 @@ export const columns: ColumnDef<Message>[] = [
         </div>
       );
     },
+  },
+  {
+    accessorKey: "branchCode",
+    header: "Branch",
+  },
+  {
+    accessorKey: "partyCode",
+    header: "Party",
   },
   {
     accessorKey: "phone",

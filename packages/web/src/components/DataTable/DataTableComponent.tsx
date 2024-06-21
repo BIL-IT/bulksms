@@ -28,6 +28,8 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import * as Lucide from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { DataTableFacetedFilter } from "./data-table-filter";
+import { DataTableViewOptions } from "./data-table-view";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,7 +54,10 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    branchCode: false,
+    partyCode: false,
+  });
 
   const table = useReactTable({
     data,
@@ -69,11 +74,12 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
   });
 
   return (
-    <div className="w-full xl:max-w-[980px] 2xl:max-w-full overflow-auto xl:min-w-[900px] flex-grow-0 grid gap-2 relative pb-2">
+    <div className="w-full xl:max-w-[980px] 2xl:max-w-full mt-3 overflow-auto xl:min-w-[900px] flex-grow-0 grid gap-2 relative pb-2">
       <div className="flex text-black gap-2 items-end ">
         <div className="">
           <label className="border p-3 flex flex-col gap-1 rounded">
@@ -121,6 +127,7 @@ export function DataTable<TData, TValue>({
           className="border-2 px-3 py-2 placeholder:font-semibold bg-transparent rounded outline-none focus:border-primary"
         />
         <DataTableToolbar table={table} />
+        <DataTableViewOptions table={table} />
       </div>
 
       <div className="rounded-md border text-black">
