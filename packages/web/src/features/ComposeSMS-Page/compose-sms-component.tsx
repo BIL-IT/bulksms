@@ -67,9 +67,10 @@ export default function ComposeSmsComponent() {
           content: detail.message,
         },
       },
-    })
-      .then(() => AllSMSRefetch())
-      .then(() => router.push("/"));
+    }).then(() => {
+      router.push("/");
+      AllSMSRefetch();
+    });
   }
 
   return (
@@ -114,16 +115,16 @@ export default function ComposeSmsComponent() {
             />
           </label>
 
-          <label className="flex gap-2 items-center w-fit">
+          {/* <label className="flex gap-2 items-center w-fit">
             <Checkbox
               onCheckedChange={(e) =>
                 setDetail({ ...detail, schedule: e as boolean })
               }
             />
             <h3 className="text-lg font-semibold">Add Scheduler?</h3>
-          </label>
+          </label> */}
 
-          {detail.schedule && (
+          {/* {detail.schedule && (
             <div>
               <div className="flex flex-col gap-2">
                 {schedule.map((item, index) => (
@@ -152,7 +153,7 @@ export default function ComposeSmsComponent() {
                 Add
               </Button>
             </div>
-          )}
+          )} */}
 
           <Button
             disabled={sendSmsLoading || !detail.numbers || !detail.message}
