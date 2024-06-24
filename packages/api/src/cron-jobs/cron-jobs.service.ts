@@ -25,6 +25,12 @@ const RENEWAL_5_DAYS_BEFORE_API =
 const RENEWAL_ACKNOWLEDGEMENT_API =
   'https://172.16.16.155/api/insurance_policy_renewal_acknowledge_sms';
 
+const LOAN_ACKNOWLEDGEMENT_API =
+  'https://172.16.16.148/sms/loan_acknowledgement_sms.php';
+
+const LOAN_REMINDER_API =
+  'https://172.16.16.148/sms/loan_repayment_reminder_sms.php';
+
 @Injectable()
 export class CronJobsService implements OnModuleInit {
   constructor(
@@ -88,6 +94,7 @@ export class CronJobsService implements OnModuleInit {
             'BIL',
             datum.branch_code,
             datum.business_code,
+            'Renewal',
           );
         }
       });
@@ -123,6 +130,7 @@ export class CronJobsService implements OnModuleInit {
             'BIL',
             datum.branch_code,
             datum.business_code,
+            'Renewal',
           );
         }
       });
@@ -155,6 +163,7 @@ export class CronJobsService implements OnModuleInit {
             'BIL',
             datum.branch_code,
             datum.business_code,
+            'Renewal',
           );
         }
       });
@@ -187,6 +196,73 @@ export class CronJobsService implements OnModuleInit {
             'BIL',
             datum.branch_code,
             datum.business_code,
+            'Renewal',
+          );
+        }
+      });
+    });
+  }
+
+  @Cron('8 8 * * *', {
+    name: 'LoanAcknowledgement',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledLoanAcknowledgement() {
+    const res = await fetch(LOAN_ACKNOWLEDGEMENT_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            '',
+            '',
+            'Loan',
+          );
+        }
+      });
+    });
+  }
+
+  @Cron('10 8 * * *', {
+    name: 'LoanReminder',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledLoanReminder() {
+    const res = await fetch(LOAN_REMINDER_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            '',
+            '',
+            'Loan',
           );
         }
       });

@@ -79,16 +79,6 @@ export const siteConfig = {
           },
         ],
       },
-      {
-        title: "DEMO",
-        subHeader: [
-          {
-            title: "Messages",
-            href: "/demo",
-            Icon: Lucide.Monitor,
-          },
-        ],
-      },
     ];
 
     return list;

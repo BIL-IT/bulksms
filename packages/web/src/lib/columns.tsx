@@ -67,6 +67,22 @@ export const columns: ColumnDef<Message>[] = [
     },
   },
   {
+    accessorKey: "type",
+    header: ({ column }) => {
+      return (
+        <div
+          className="flex items-center gap-1 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUp
+            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
+          />
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "branchCode",
     header: "Branch",
   },

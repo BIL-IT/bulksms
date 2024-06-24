@@ -25,4 +25,7 @@ export class AllMessages {
 
   @Field()
   status: string;
+
+  @Field()
+  type: string;
 }

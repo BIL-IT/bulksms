@@ -8,5 +8,6 @@ query GetAllSMS {
     phone
     content
     status
+    type
   }
 }

@@ -25,6 +25,7 @@ export class DlrController {
       const message = queries['message'] as string;
       const branchCode = queries['branch_code'] as string | null | undefined;
       const partyCode = queries['party_code'] as string | null | undefined;
+      const type = queries['type'] as string | null | undefined;
 
       const storeMessage = await this.dlrService.handleDLR(
         report,
@@ -33,6 +34,7 @@ export class DlrController {
         message,
         branchCode,
         partyCode,
+        type,
       );
 
       if (!storeMessage) {

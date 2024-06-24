@@ -24,18 +24,6 @@ export class MessagesService {
     return messages;
   }
 
-  async GetAllDemoSMS(): Promise<AllMessages[]> {
-    const messages = await this.prisma.demoSms.findMany({
-      orderBy: {
-        time: 'desc',
-      },
-    });
-
-    if (!messages) throw new Error('Unable to retrieve messages');
-
-    return messages;
-  }
-
   async SendSMS(
     phoneNumbers: string[],
     message: string,

@@ -58,6 +58,7 @@ export function DataTable<TData, TValue>({
     branchCode: false,
     partyCode: false,
     sender: false,
+    type: false,
   });
 
   const table = useReactTable({
@@ -81,7 +82,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full xl:max-w-[980px] 2xl:max-w-full mt-3 overflow-auto xl:min-w-[900px] flex-grow-0 grid gap-2 relative pb-2">
-      <div className="flex text-black gap-2 items-end ">
+      <div className="flex text-black gap-2">
         <div className="">
           <label className="border p-3 flex flex-col gap-1 rounded">
             <span className="flex justify-between">
@@ -120,15 +121,19 @@ export function DataTable<TData, TValue>({
             />
           </label>
         </div>
-        <input
-          type="text"
-          onChange={(e) => setSearchField(e.target.value)}
-          value={searchField}
-          placeholder="Search for phone number or message"
-          className="border-2 px-3 py-2 placeholder:font-semibold bg-transparent rounded outline-none focus:border-primary"
-        />
-        <DataTableToolbar table={table} />
-        <DataTableViewOptions table={table} />
+        <div className="flex flex-col justify-between">
+          <input
+            type="text"
+            onChange={(e) => setSearchField(e.target.value)}
+            value={searchField}
+            placeholder="Search for phone number or message"
+            className="border px-1 py-1 w-[150px] text-sm bg-transparent rounded outline-none focus:border-primary"
+          />
+          <DataTableToolbar table={table} />
+        </div>
+        <div className="ml-auto mt-auto">
+          <DataTableViewOptions table={table} />
+        </div>
       </div>
 
       <div className="rounded-md border text-black">

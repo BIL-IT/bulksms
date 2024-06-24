@@ -28,6 +28,7 @@ export type AllMessages = {
   sender: Scalars['String']['output'];
   status: Scalars['String']['output'];
   time: Scalars['DateTime']['output'];
+  type: Scalars['String']['output'];
 };
 
 export type ChangePasswordInput = {
@@ -132,7 +133,6 @@ export type MutationSendOtpArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  GetAllDemoSMS: Array<AllMessages>;
   GetAllSMS: Array<AllMessages>;
   Me: CurrentUserDetail;
   getAllScheduledJobs: Array<ScheduledJobsOutput>;
@@ -218,15 +218,10 @@ export type GenerateReportMutationVariables = Exact<{
 
 export type GenerateReportMutation = { __typename?: 'Mutation', generateReport: string };
 
-export type GetAllDemoSmsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllDemoSmsQuery = { __typename?: 'Query', GetAllDemoSMS: Array<{ __typename?: 'AllMessages', id: string, time: any, sender: string, branchCode: string, partyCode: string, phone: string, content: string, status: string }> };
-
 export type GetAllSmsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllSmsQuery = { __typename?: 'Query', GetAllSMS: Array<{ __typename?: 'AllMessages', id: string, time: any, sender: string, branchCode: string, partyCode: string, phone: string, content: string, status: string }> };
+export type GetAllSmsQuery = { __typename?: 'Query', GetAllSMS: Array<{ __typename?: 'AllMessages', id: string, time: any, sender: string, branchCode: string, partyCode: string, phone: string, content: string, status: string, type: string }> };
 
 export type SendSmsMutationVariables = Exact<{
   messageInput: MessageInput;
@@ -505,52 +500,6 @@ export function useGenerateReportMutation(baseOptions?: Apollo.MutationHookOptio
 export type GenerateReportMutationHookResult = ReturnType<typeof useGenerateReportMutation>;
 export type GenerateReportMutationResult = Apollo.MutationResult<GenerateReportMutation>;
 export type GenerateReportMutationOptions = Apollo.BaseMutationOptions<GenerateReportMutation, GenerateReportMutationVariables>;
-export const GetAllDemoSmsDocument = gql`
-    query GetAllDemoSMS {
-  GetAllDemoSMS {
-    id
-    time
-    sender
-    branchCode
-    partyCode
-    phone
-    content
-    status
-  }
-}
-    `;
-
-/**
- * __useGetAllDemoSmsQuery__
- *
- * To run a query within a React component, call `useGetAllDemoSmsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllDemoSmsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllDemoSmsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllDemoSmsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>(GetAllDemoSmsDocument, options);
-      }
-export function useGetAllDemoSmsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>(GetAllDemoSmsDocument, options);
-        }
-export function useGetAllDemoSmsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>(GetAllDemoSmsDocument, options);
-        }
-export type GetAllDemoSmsQueryHookResult = ReturnType<typeof useGetAllDemoSmsQuery>;
-export type GetAllDemoSmsLazyQueryHookResult = ReturnType<typeof useGetAllDemoSmsLazyQuery>;
-export type GetAllDemoSmsSuspenseQueryHookResult = ReturnType<typeof useGetAllDemoSmsSuspenseQuery>;
-export type GetAllDemoSmsQueryResult = Apollo.QueryResult<GetAllDemoSmsQuery, GetAllDemoSmsQueryVariables>;
 export const GetAllSmsDocument = gql`
     query GetAllSMS {
   GetAllSMS {
@@ -562,6 +511,7 @@ export const GetAllSmsDocument = gql`
     phone
     content
     status
+    type
   }
 }
     `;

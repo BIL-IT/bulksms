@@ -8,16 +8,15 @@ export class SmsClientService {
     from?: string,
     branchCode?: string | null | undefined,
     partyCode?: string | null | undefined,
+    type?: string | null | undefined,
   ) {
     const encodedMessage = encodeURI(message);
     const content = message + '\n\n -From Bhutan Insurance Limited';
     const uuid = crypto.randomUUID();
-    const recipientNumber = '975' + to;
-    // const encodedURL = encodeURIComponent(
-    //   `http://localhost:3001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}`,
-    // );
+    const recipientNumber = to.startsWith('975') ? to : '975' + to;
+
     const encodedURL = encodeURIComponent(
-      `https://172.16.16.108:2001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}&branch_code=${branchCode || ''}&party_code=${partyCode || ''}`,
+      `https://172.16.16.108:2001/dlr?message_id=${uuid}&report=%d&recipient=${to}&message=${encodedMessage}&branch_code=${branchCode || ''}&party_code=${partyCode || ''}&type=${type || ''}`,
     );
     try {
       const res = await fetch(

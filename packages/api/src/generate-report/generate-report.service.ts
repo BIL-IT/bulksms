@@ -20,6 +20,7 @@ export class GenerateReportService {
         'id',
         'time',
         'sender',
+        'type',
         'branchCode',
         'partyCode',
         'phone',
