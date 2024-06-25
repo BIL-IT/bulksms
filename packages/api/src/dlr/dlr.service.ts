@@ -30,8 +30,6 @@ export class DlrService {
       },
     });
 
-    console.log(storedMessage);
-
     if (storedMessage) {
       const updatedMessage = await this.prisma.sms.update({
         where: {
