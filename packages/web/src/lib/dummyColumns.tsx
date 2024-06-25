@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronUp as ArrowUp } from "lucide-react";
 
@@ -14,21 +15,11 @@ export type Message = {
   status: string;
 };
 
-const dlrCodes = {
-  "1": "Delivered",
-  "2": "Non-Delivered to Phone",
-  "4": "Queued on SMSC",
-  "8": "Delivered",
-  "16": "Non-Delivered to SMSC.",
-  "17": "Invalid Format",
-  "18": "Failed",
-};
-
-export const columns: ColumnDef<Message>[] = [
+const dummy_cols: ColumnDef<Message>[] = [
   {
     accessorKey: "id",
     header: "No.",
-    cell: (props) => <p>{props.row.index + 1}</p>,
+    cell: (props) => <Skeleton className="w-[50px] h-[30px] bg-gray-400" />,
     enableHiding: false,
   },
   {
@@ -47,50 +38,11 @@ export const columns: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return new Date(props.getValue() as string).toString().split("GMT")[0];
+      return <Skeleton className="w-[100px] h-[30px] bg-gray-400" />;
     },
     enableHiding: false,
   },
-  {
-    accessorKey: "sender",
-    header: ({ column }) => {
-      return (
-        <div
-          className="flex items-center gap-1 cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Sender
-          <ArrowUp
-            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
-          />
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "type",
-    header: ({ column }) => {
-      return (
-        <div
-          className="flex items-center gap-1 cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Type
-          <ArrowUp
-            className={`transition-all duration-300 ${column.getIsSorted() === "asc" ? "rotate-0" : column.getIsSorted() === "desc" ? "rotate-180" : "opacity-0"}`}
-          />
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "branchCode",
-    header: "Branch",
-  },
-  {
-    accessorKey: "partyCode",
-    header: "Party",
-  },
+
   {
     accessorKey: "phone",
     header: ({ column }) => {
@@ -106,6 +58,7 @@ export const columns: ColumnDef<Message>[] = [
         </div>
       );
     },
+    cell: () => <Skeleton className="w-[100px] h-[30px] bg-gray-400" />,
   },
   {
     accessorKey: "content",
@@ -131,9 +84,7 @@ export const columns: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return (
-        <div className="flex-1 w-[400px]">{props.getValue() as string}</div>
-      );
+      return <Skeleton className="w-full h-[50px] bg-gray-400" />;
     },
   },
   {
@@ -160,13 +111,7 @@ export const columns: ColumnDef<Message>[] = [
       return value.includes(row.getValue(id));
     },
     cell(props) {
-      return (
-        <div
-          className={`flex-1 mx-auto w-fit text-xs text-center text-white rounded p-2 font-semibold ${(props.getValue() as string) === "Delivered" ? "bg-green-500" : "bg-red-500"}`}
-        >
-          {props.getValue() as string}
-        </div>
-      );
+      return <Skeleton className="w-[100px] h-[30px] bg-gray-400" />;
     },
   },
   // {
@@ -185,3 +130,5 @@ export const columns: ColumnDef<Message>[] = [
   //   },
   // },
 ];
+
+export default dummy_cols;

@@ -2,10 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AsyncParser } from '@json2csv/node';
 
-async function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 @Injectable()
 export class GenerateReportService {
   constructor(private prisma: PrismaService) {}
@@ -49,7 +45,6 @@ export class GenerateReportService {
 
       // const fieldNames = ['Name', 'Phone', 'Mobile', 'Email', 'Address', 'Notes'];
       const data = await parser.parse(sms).promise();
-      await delay(1000);
 
       // const base64 = this.base64_encode(data);
 

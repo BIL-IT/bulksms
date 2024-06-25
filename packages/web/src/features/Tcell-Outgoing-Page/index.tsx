@@ -6,6 +6,8 @@ import router from "next/router";
 import * as Lucide from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
+import dummy_cols from "@/lib/dummyColumns";
+import { dummy_messages } from "@/lib/data";
 
 export default function TcellOutgoingPage() {
   const {
@@ -36,8 +38,7 @@ export default function TcellOutgoingPage() {
   if (!meData?.Me) router.push("/login");
 
   return (
-    meData &&
-    data && (
+    meData && (
       <section className="bg-background flex-1">
         <Head>
           <title>TashiCell Outgoing</title>
@@ -52,35 +53,39 @@ export default function TcellOutgoingPage() {
                 setSearchField={setSearchField}
                 setToDate={setToDate}
                 toDate={toDate}
-                columns={columns}
-                data={data.GetAllSMS.filter((prev) =>
-                  prev.phone.startsWith("77")
-                )
-                  .filter(
-                    (prev) =>
-                      prev.phone.includes(searchField) ||
-                      prev.content
-                        .toLowerCase()
-                        .includes(searchField.toLowerCase())
-                  )
-                  .filter((prev) => {
-                    if (!fromDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() >
-                        dateSchema.parse(fromDate).getTime()
-                      );
-                    }
-                  })
-                  .filter((prev) => {
-                    if (!toDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() <
-                        dateSchema.parse(toDate).getTime()
-                      );
-                    }
-                  })}
+                columns={data?.GetAllSMS ? columns : dummy_cols}
+                data={
+                  data?.GetAllSMS
+                    ? data.GetAllSMS.filter((prev) =>
+                        prev.phone.startsWith("77")
+                      )
+                        .filter(
+                          (prev) =>
+                            prev.phone.includes(searchField) ||
+                            prev.content
+                              .toLowerCase()
+                              .includes(searchField.toLowerCase())
+                        )
+                        .filter((prev) => {
+                          if (!fromDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() >
+                              dateSchema.parse(fromDate).getTime()
+                            );
+                          }
+                        })
+                        .filter((prev) => {
+                          if (!toDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() <
+                              dateSchema.parse(toDate).getTime()
+                            );
+                          }
+                        })
+                    : dummy_messages
+                }
               />
             </div>
           </div>

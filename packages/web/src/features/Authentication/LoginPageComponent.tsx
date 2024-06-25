@@ -61,7 +61,7 @@ export default function LoginPageComponent() {
   return (
     <div className="min-h-screen md:bg-[#F6F6F6] grid gap-5 place-content-center py-5 flex-1">
       <Head>
-        <title>Login</title>
+        <title>Login - BIL SMS-SERVER</title>
       </Head>
       <div className="flex justify-center gap-5 items-center">
         <Image src={logo} alt="devlinks" width={100} />

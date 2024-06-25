@@ -7,6 +7,8 @@ import * as Lucide from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
 import { DataTableToolbar } from "@/components/DataTable/data-table-toolbar";
+import { dummy_messages } from "@/lib/data";
+import dummy_cols from "@/lib/dummyColumns";
 
 export default function HomePageComponent() {
   const router = useRouter();
@@ -39,11 +41,10 @@ export default function HomePageComponent() {
   if (!meData?.Me) router.push("/login");
 
   return (
-    meData &&
-    data && (
+    meData && (
       <section className="bg-background flex-1">
         <Head>
-          <title>Home</title>
+          <title>BIL SMS-SERVER</title>
         </Head>
         <div className="flex justify-center py-7 min-h-full">
           <div className="xl:max-w-[1100px] 2xl:max-w-[1500px] w-full flex justify-center">
@@ -63,32 +64,36 @@ export default function HomePageComponent() {
                 setSearchField={setSearchField}
                 setToDate={setToDate}
                 toDate={toDate}
-                columns={columns}
-                data={data.GetAllSMS.filter(
-                  (prev) =>
-                    prev.phone.includes(searchField) ||
-                    prev.content
-                      .toLowerCase()
-                      .includes(searchField.toLowerCase())
-                )
-                  .filter((prev) => {
-                    if (!fromDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() >
-                        dateSchema.parse(fromDate).getTime()
-                      );
-                    }
-                  })
-                  .filter((prev) => {
-                    if (!toDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() <
-                        dateSchema.parse(toDate).getTime()
-                      );
-                    }
-                  })}
+                columns={data?.GetAllSMS ? columns : dummy_cols}
+                data={
+                  data?.GetAllSMS
+                    ? data.GetAllSMS.filter(
+                        (prev) =>
+                          prev.phone.includes(searchField) ||
+                          prev.content
+                            .toLowerCase()
+                            .includes(searchField.toLowerCase())
+                      )
+                        .filter((prev) => {
+                          if (!fromDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() >
+                              dateSchema.parse(fromDate).getTime()
+                            );
+                          }
+                        })
+                        .filter((prev) => {
+                          if (!toDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() <
+                              dateSchema.parse(toDate).getTime()
+                            );
+                          }
+                        })
+                    : dummy_messages
+                }
               />
             </div>
           </div>

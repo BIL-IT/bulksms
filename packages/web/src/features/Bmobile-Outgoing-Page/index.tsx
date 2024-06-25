@@ -6,6 +6,8 @@ import router from "next/router";
 import * as Lucide from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
+import dummy_cols from "@/lib/dummyColumns";
+import { dummy_messages } from "@/lib/data";
 
 export default function BmobileOutgoingPage() {
   const {
@@ -14,7 +16,7 @@ export default function BmobileOutgoingPage() {
     error: meError,
     refetch: meRefetch,
   } = useMeQuery({
-    pollInterval: 10000
+    pollInterval: 10000,
   });
 
   const {
@@ -36,8 +38,7 @@ export default function BmobileOutgoingPage() {
   if (!meData?.Me) router.push("/login");
 
   return (
-    meData &&
-    data && (
+    meData && (
       <section className="bg-background flex-1">
         <Head>
           <title>B-Mobile Outgoing</title>
@@ -52,35 +53,39 @@ export default function BmobileOutgoingPage() {
                 setSearchField={setSearchField}
                 setToDate={setToDate}
                 toDate={toDate}
-                columns={columns}
-                data={data.GetAllSMS.filter((prev) =>
-                  prev.phone.startsWith("17")
-                )
-                  .filter(
-                    (prev) =>
-                      prev.phone.includes(searchField) ||
-                      prev.content
-                        .toLowerCase()
-                        .includes(searchField.toLowerCase())
-                  )
-                  .filter((prev) => {
-                    if (!fromDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() >
-                        dateSchema.parse(fromDate).getTime()
-                      );
-                    }
-                  })
-                  .filter((prev) => {
-                    if (!toDate) return true;
-                    else {
-                      return (
-                        dateSchema.parse(prev.time).getTime() <
-                        dateSchema.parse(toDate).getTime()
-                      );
-                    }
-                  })}
+                columns={data?.GetAllSMS ? columns : dummy_cols}
+                data={
+                  data?.GetAllSMS
+                    ? data.GetAllSMS.filter((prev) =>
+                        prev.phone.startsWith("17")
+                      )
+                        .filter(
+                          (prev) =>
+                            prev.phone.includes(searchField) ||
+                            prev.content
+                              .toLowerCase()
+                              .includes(searchField.toLowerCase())
+                        )
+                        .filter((prev) => {
+                          if (!fromDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() >
+                              dateSchema.parse(fromDate).getTime()
+                            );
+                          }
+                        })
+                        .filter((prev) => {
+                          if (!toDate) return true;
+                          else {
+                            return (
+                              dateSchema.parse(prev.time).getTime() <
+                              dateSchema.parse(toDate).getTime()
+                            );
+                          }
+                        })
+                    : dummy_messages
+                }
               />
             </div>
           </div>
