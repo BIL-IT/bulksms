@@ -8,6 +8,9 @@ export class ReportDetailsInput {
   @Field()
   endDate: Date;
 
+  @Field()
+  type: string;
+
   @Field(() => [String])
   status: string[];
 }

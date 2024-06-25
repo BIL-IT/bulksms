@@ -143,6 +143,7 @@ export type ReportDetailsInput = {
   endDate: Scalars['DateTime']['input'];
   startDate: Scalars['DateTime']['input'];
   status: Array<Scalars['String']['input']>;
+  type: Scalars['String']['input'];
 };
 
 export enum Role {

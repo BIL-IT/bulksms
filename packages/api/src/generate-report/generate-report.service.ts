@@ -13,6 +13,7 @@ export class GenerateReportService {
   async generateReport(
     startDate: Date,
     endDate: Date,
+    type: string,
     status: string[],
   ): Promise<string> {
     try {
@@ -38,6 +39,9 @@ export class GenerateReportService {
           },
           status: {
             in: status,
+          },
+          type: {
+            contains: type === 'All' ? '' : type,
           },
         },
       });

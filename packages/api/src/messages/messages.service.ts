@@ -13,9 +13,16 @@ export class MessagesService {
   ) {}
 
   async GetAllSMS(): Promise<AllMessages[]> {
+    const last3Days = Date.now() - 24 * 60 * 60 * 1000 * 3;
+
     const messages = await this.prisma.sms.findMany({
       orderBy: {
         time: 'desc',
+      },
+      where: {
+        time: {
+          gte: new Date(last3Days).toISOString(),
+        },
       },
     });
 

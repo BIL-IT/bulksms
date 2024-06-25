@@ -13,6 +13,9 @@ import {
   TicketSlash,
   TicketMinus,
   CircleDashed,
+  HistoryIcon,
+  ReceiptTextIcon,
+  HandCoinsIcon,
 } from "lucide-react";
 
 export const labels = [
@@ -71,6 +74,24 @@ export const statuses = [
   //   label: "Canceled",
   //   icon: CrossCircledIcon,
   // },
+];
+
+export const types = [
+  {
+    label: "All",
+    value: "All",
+    icon: ReceiptTextIcon,
+  },
+  {
+    label: "Loan",
+    value: "Loan",
+    icon: HandCoinsIcon,
+  },
+  {
+    label: "Renewal",
+    value: "Renewal",
+    icon: HistoryIcon,
+  },
 ];
 
 export const priorities = [

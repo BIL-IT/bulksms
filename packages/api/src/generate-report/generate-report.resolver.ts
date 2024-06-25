@@ -10,6 +10,7 @@ const reportSchema = z.object({
   endDate: z.date().min(new Date(0), {
     message: 'Date is required',
   }),
+  type: z.string(),
   status: z.string().array(),
 });
 
@@ -25,6 +26,7 @@ export class GenerateReportResolver {
     const data = this.generateReportService.generateReport(
       parsedSchema.startDate,
       parsedSchema.endDate,
+      parsedSchema.type,
       parsedSchema.status,
     );
     return data;

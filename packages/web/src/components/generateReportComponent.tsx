@@ -25,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorLabel from "./errorLabel";
 import { Button } from "./ui/button";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
-import { statuses } from "./DataTable/data";
+import { statuses, types } from "./DataTable/data";
 
 const reportSchema = z.object({
   startDate: z.date().min(new Date(0), {
@@ -36,6 +36,9 @@ const reportSchema = z.object({
   }),
   status: z.string().array().min(1, {
     message: "Select atleast one status",
+  }),
+  type: z.string().min(1, {
+    message: "Select atleast one type",
   }),
 });
 
@@ -55,6 +58,9 @@ export default function GenerateReportComponent() {
   } = useForm<z.infer<typeof reportSchema>>({
     resolver: zodResolver(reportSchema),
     mode: "all",
+    defaultValues: {
+      type: "All",
+    },
   });
 
   watch();
@@ -74,12 +80,13 @@ export default function GenerateReportComponent() {
   }
 
   const onSubmit = async (data: z.infer<typeof reportSchema>) => {
-    console.log(data);
+    // console.log(data);
     GenerateReport({
       variables: {
         reportDetailsInput: {
           endDate: data.endDate,
           startDate: data.startDate,
+          type: data.type,
           status: data.status,
         },
       },
@@ -167,6 +174,35 @@ export default function GenerateReportComponent() {
               </span>
             </div>
             <div className="my-5">
+              <h2 className="font-semibold mb-1">Types</h2>
+              <ToggleGroup
+                type="single"
+                value={getValues("type")}
+                onValueChange={(e) => {
+                  setValue("type", e);
+                  console.log(e);
+                }}
+              >
+                {/* <ToggleGroupItem value="bold" aria-label="Toggle bold">
+                    
+                </ToggleGroupItem> */}
+                <div className="flex flex-wrap justify-start flex-1 gap-3">
+                  {types.map((type, index) => (
+                    <ToggleGroupItem
+                      key={index}
+                      value={type.value}
+                      aria-label="Toggle bold"
+                      className="flex items-center gap-2 "
+                    >
+                      <type.icon />
+                      <h3>{type.label}</h3>
+                    </ToggleGroupItem>
+                  ))}
+                </div>
+              </ToggleGroup>
+              {errors.type && <ErrorLabel>{errors.type.message}</ErrorLabel>}
+            </div>
+            <div className="my-5">
               <h2 className="font-semibold mb-1">Statuses</h2>
               <ToggleGroup
                 type="multiple"
@@ -194,6 +230,7 @@ export default function GenerateReportComponent() {
                 <ErrorLabel>{errors.status.message}</ErrorLabel>
               )}
             </div>
+
             <div className="flex flex-col gap-3 items-center">
               <Button disabled={ReportLoading} type="submit" className="mt-5">
                 {ReportLoading ? (
