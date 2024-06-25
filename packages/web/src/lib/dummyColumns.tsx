@@ -19,7 +19,7 @@ const dummy_cols: ColumnDef<Message>[] = [
   {
     accessorKey: "id",
     header: "No.",
-    cell: (props) => <Skeleton className="w-[50px] h-[30px] bg-gray-400" />,
+    cell: (props) => <Skeleton className="w-[30px] h-[35px] bg-gray-400" />,
     enableHiding: false,
   },
   {
@@ -38,7 +38,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return <Skeleton className="w-[100px] h-[30px] bg-gray-400" />;
+      return <Skeleton className="w-[100px] h-[35px] bg-gray-400" />;
     },
     enableHiding: false,
   },
@@ -58,7 +58,7 @@ const dummy_cols: ColumnDef<Message>[] = [
         </div>
       );
     },
-    cell: () => <Skeleton className="w-[100px] h-[30px] bg-gray-400" />,
+    cell: () => <Skeleton className="w-[100px] h-[35px] bg-gray-400" />,
   },
   {
     accessorKey: "content",
@@ -84,7 +84,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return <Skeleton className="w-full h-[50px] bg-gray-400" />;
+      return <Skeleton className="w-[400px] h-[80px] bg-gray-400" />;
     },
   },
   {
@@ -111,7 +111,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       return value.includes(row.getValue(id));
     },
     cell(props) {
-      return <Skeleton className="w-[100px] h-[30px] bg-gray-400" />;
+      return <Skeleton className="w-[100px] h-[35px] bg-gray-400" />;
     },
   },
   // {
