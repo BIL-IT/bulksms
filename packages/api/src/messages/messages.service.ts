@@ -5,10 +5,6 @@ import { SmsClientService } from 'src/sms-client/sms-client.service';
 
 // http://172.16.16.105:13013/cgi-bin/sendsms?username=sms&password=sms123&to=77360762&from=BIL&text=testing
 
-async function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 @Injectable()
 export class MessagesService {
   constructor(
@@ -18,8 +14,6 @@ export class MessagesService {
 
   async GetAllSMS(): Promise<AllMessages[]> {
     const last3Days = Date.now() - 24 * 60 * 60 * 1000 * 3;
-
-    await delay(5000);
 
     const messages = await this.prisma.sms.findMany({
       orderBy: {
