@@ -38,7 +38,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return <Skeleton className="w-[100px] h-[35px] bg-gray-400" />;
+      return <Skeleton className="w-[150px] h-[35px] bg-gray-400" />;
     },
     enableHiding: false,
   },
@@ -84,7 +84,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       );
     },
     cell(props) {
-      return <Skeleton className="w-[400px] h-[80px] bg-gray-400" />;
+      return <Skeleton className="w-[380px] h-[100px] bg-gray-400" />;
     },
   },
   {
@@ -111,7 +111,7 @@ const dummy_cols: ColumnDef<Message>[] = [
       return value.includes(row.getValue(id));
     },
     cell(props) {
-      return <Skeleton className="w-[100px] h-[35px] bg-gray-400" />;
+      return <Skeleton className="w-[80px] h-[35px] bg-gray-400" />;
     },
   },
   // {
