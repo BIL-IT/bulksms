@@ -141,7 +141,7 @@ export const columns: ColumnDef<Message>[] = [
     header: ({ column }) => {
       return (
         <div
-          className="flex items-center gap-1 cursor-pointer"
+          className="flex items-center gap-1 cursor-pointer mx-auto justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Status
