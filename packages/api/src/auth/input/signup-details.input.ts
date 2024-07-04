@@ -1,4 +1,13 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+
+enum AllowedRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+registerEnumType(AllowedRole, {
+  name: 'AllowedRole',
+});
 
 @InputType()
 export class SignupDetails {
@@ -13,4 +22,7 @@ export class SignupDetails {
 
   @Field()
   department: string;
+
+  @Field(() => AllowedRole)
+  role: AllowedRole;
 }

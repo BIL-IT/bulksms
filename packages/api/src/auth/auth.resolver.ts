@@ -75,6 +75,7 @@ export class AuthResolver {
       signupDetails.username,
       signupDetails.password,
       signupDetails.department,
+      signupDetails.role,
     );
 
     res.cookie('auth', token, {

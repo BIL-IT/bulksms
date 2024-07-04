@@ -20,6 +20,7 @@ export class AuthService {
     username: string,
     password: string,
     department: string,
+    role: 'ADMIN' | 'USER',
   ): Promise<string> {
     await delay(2000);
     try {
@@ -30,6 +31,7 @@ export class AuthService {
           hash: await argon.hash(password),
           username,
           department,
+          role,
         },
       });
       if (!user) throw new Error('Failed to Create an Account');

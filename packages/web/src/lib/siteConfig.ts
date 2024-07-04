@@ -32,7 +32,7 @@ export const siteConfig = {
     return list;
   },
 
-  getFinalHeaders: () => {
+  getFinalHeaders: (isAdmin: boolean) => {
     const list = [
       {
         title: "GENERAL",
@@ -72,14 +72,17 @@ export const siteConfig = {
             href: "/change-password",
             Icon: Lucide.Cog,
           },
-          {
-            title: "Add User",
-            href: "/add-user",
-            Icon: Lucide.UserPlus,
-          },
         ],
       },
     ];
+
+    if (isAdmin) {
+      list[1].subHeader.push({
+        title: "Add User",
+        href: "/add-user",
+        Icon: Lucide.UserPlus,
+      });
+    }
 
     return list;
   },

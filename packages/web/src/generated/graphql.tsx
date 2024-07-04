@@ -31,6 +31,11 @@ export type AllMessages = {
   type: Scalars['String']['output'];
 };
 
+export enum AllowedRole {
+  Admin = 'ADMIN',
+  User = 'USER'
+}
+
 export type ChangePasswordInput = {
   newPassword: Scalars['String']['input'];
   oldPassword: Scalars['String']['input'];
@@ -163,6 +168,7 @@ export type SignupDetails = {
   department: Scalars['String']['input'];
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  role: AllowedRole;
   username: Scalars['String']['input'];
 };
 

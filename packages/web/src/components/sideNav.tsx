@@ -64,23 +64,25 @@ export default function SideNav() {
           <h4 className="text-sm font-semibold"> - SMS SERVER</h4>
         </span>
         <div className="flex flex-col gap-4 ">
-          {siteConfig.getFinalHeaders().map((obj, index) => (
-            <div key={index} className="flex flex-col gap-2">
-              <h1 className="font-bold text-card mb-1">{obj.title}</h1>
-              {obj.subHeader.map((subObj, subIndex) => (
-                <span
-                  key={subIndex}
-                  className={`flex items-center rounded p-2 gap-2 ${"/" + dir === subObj.href ? "bg-card text-black" : "text-muted-foreground"}`}
-                >
-                  <subObj.Icon />
+          {siteConfig
+            .getFinalHeaders(meData.Me.role === "ADMIN")
+            .map((obj, index) => (
+              <div key={index} className="flex flex-col gap-2">
+                <h1 className="font-bold text-card mb-1">{obj.title}</h1>
+                {obj.subHeader.map((subObj, subIndex) => (
+                  <span
+                    key={subIndex}
+                    className={`flex items-center rounded p-2 gap-2 ${"/" + dir === subObj.href ? "bg-card text-black" : "text-muted-foreground"}`}
+                  >
+                    <subObj.Icon />
 
-                  <Link href={subObj.href} className="w-full">
-                    {subObj.title}
-                  </Link>
-                </span>
-              ))}
-            </div>
-          ))}
+                    <Link href={subObj.href} className="w-full">
+                      {subObj.title}
+                    </Link>
+                  </span>
+                ))}
+              </div>
+            ))}
         </div>
       </div>
       <div className="flex flex-col gap-2">
