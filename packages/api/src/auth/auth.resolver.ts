@@ -68,7 +68,6 @@ export class AuthResolver {
   @Mutation(() => SuccessMessage)
   async SignUp(
     @Args('signupDetails') signupDetails: SignupDetails,
-    @Context() { res }: { res: Response },
   ): Promise<SuccessMessage> {
     const token = await this.authService.SignUp(
       signupDetails.email,
@@ -78,12 +77,14 @@ export class AuthResolver {
       signupDetails.role,
     );
 
-    res.cookie('auth', token, {
-      httpOnly: true,
-      maxAge: 3.6e6,
-      sameSite: 'none',
-      secure: true,
-    });
+    if (!token) throw new Error('Failed to create User');
+
+    // res.cookie('auth', token, {
+    //   httpOnly: true,
+    //   maxAge: 3.6e6,
+    //   sameSite: 'none',
+    //   secure: true,
+    // });
 
     return {
       message: 'Success',
