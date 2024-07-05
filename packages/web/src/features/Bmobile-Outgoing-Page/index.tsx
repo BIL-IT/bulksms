@@ -44,8 +44,8 @@ export default function BmobileOutgoingPage() {
           <title>B-Mobile Outgoing</title>
         </Head>
         <div className="flex justify-center py-7 min-h-full">
-          <div className="xl:max-w-[1100px] 2xl:max-w-[1500px] w-full flex justify-center">
-            <div className="xl:max-w-[1000px] 2xl:max-w-[1300px] flex flex-col gap-4">
+          <div className=" w-full flex justify-center">
+            <div className="xl:max-w-[1000px] 2xl:max-w-[1250px] 3xl:max-w-[1700px] w-full flex flex-col gap-4">
               <DataTable
                 fromDate={fromDate}
                 searchField={searchField}

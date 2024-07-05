@@ -81,7 +81,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-full xl:max-w-[980px] 2xl:max-w-full mt-3 overflow-auto xl:min-w-[900px] flex-grow-0 grid gap-2 relative pb-2">
+    <div className="w-full xl:pr-4 mt-3 overflow-auto xl:min-w-[900px] flex-grow-0 grid gap-2 relative pb-2">
       <div className="flex text-black gap-2">
         <div className="">
           <label className="border p-3 flex flex-col gap-1 rounded">
