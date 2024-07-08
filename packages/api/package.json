@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.2",
     "@prisma/client": "^5.9.1",
+    "apollo-server-core": "^3.13.0",
     "argon2": "^0.31.2",
     "cookie-parser": "^1.4.6",
     "graphql": "^16.8.1",

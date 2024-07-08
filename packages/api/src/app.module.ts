@@ -21,6 +21,7 @@ import { SendOtpModule } from './send-otp/send-otp.module';
 import { GenerateReportModule } from './generate-report/generate-report.module';
 import { KannelReportResolver } from './kannel-report/kannel-report.resolver';
 import { KannelReportService } from './kannel-report/kannel-report.service';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
 @Module({
   imports: [
@@ -33,6 +34,8 @@ import { KannelReportService } from './kannel-report/kannel-report.service';
         credentials: true,
         origin: true,
       },
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     AuthModule,
     PrismaModule,

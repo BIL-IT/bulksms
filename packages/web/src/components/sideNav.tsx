@@ -96,6 +96,9 @@ export default function SideNav() {
         >
           Logout
         </Button>
+        <p className="mt-2 text-center text-xs">
+          Signed in as {meData.Me.username} {"\n"}
+        </p>
       </div>
     </main>
   );
