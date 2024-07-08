@@ -13,6 +13,11 @@ type InsurancePolicyRenewalExpiry = {
   business_code: string;
 };
 
+type Loan = {
+  phone_no: string;
+  message: string;
+};
+
 const RENEWAL_14_DAYS_BEFORE_API =
   'https://172.16.16.155/api/insurance_policy_renewal_14daysbefore_sms';
 
@@ -211,7 +216,7 @@ export class CronJobsService implements OnModuleInit {
     const res = await fetch(LOAN_ACKNOWLEDGEMENT_API, {
       mode: 'no-cors',
     });
-    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    const data = (await res.json()) as Loan[];
     // const data = testData;
 
     data.forEach((datum) => {
@@ -244,7 +249,7 @@ export class CronJobsService implements OnModuleInit {
     const res = await fetch(LOAN_REMINDER_API, {
       mode: 'no-cors',
     });
-    const data = (await res.json()) as InsurancePolicyRenewalExpiry[];
+    const data = (await res.json()) as Loan[];
     // const data = testData;
 
     data.forEach((datum) => {
