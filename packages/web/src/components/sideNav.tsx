@@ -35,7 +35,12 @@ export default function SideNav() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery();
+  } = useMeQuery({
+    pollInterval: 10000,
+    onError: () => {
+      !!meData?.Me && router.reload();
+    },
+  });
 
   const [logoutMutation] = useLogoutMutation();
 
