@@ -12,7 +12,8 @@
     "start:server": "yarn workspace @packages/api start:dev",
     "web": "yarn workspace @packages/web",
     "api": "yarn workspace @packages/api",
-    "db:migrate": "yarn workspace @packages/api prisma migrate dev"
+    "db:migrate": "yarn workspace @packages/api prisma migrate dev",
+    "db:studio": "yarn workspace @packages/api prisma studio"
   },
   "dependencies": {
     "argon2": "^0.40.3",
