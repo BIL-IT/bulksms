@@ -18,9 +18,7 @@ export default function HomePageComponent() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery({
-    pollInterval: 10000,
-  });
+  } = useMeQuery({});
 
   const {
     data,

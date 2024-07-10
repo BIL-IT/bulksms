@@ -40,9 +40,7 @@ export default function ComposeSmsComponent() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery({
-    pollInterval: 10000,
-  });
+  } = useMeQuery({});
 
   const [sendSmsMutation, { loading: sendSmsLoading, error }] =
     useSendSmsMutation();

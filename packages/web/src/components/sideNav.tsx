@@ -35,7 +35,12 @@ export default function SideNav() {
     loading: meLoading,
     error: meError,
     refetch: meRefetch,
-  } = useMeQuery();
+  } = useMeQuery({
+    pollInterval: 10000,
+    onError: () => {
+      !!meData?.Me && router.reload();
+    },
+  });
 
   const [logoutMutation] = useLogoutMutation();
 
@@ -96,6 +101,9 @@ export default function SideNav() {
         >
           Logout
         </Button>
+        <p className="mt-2 text-center text-xs">
+          Signed in as {meData.Me.username} {"\n"}
+        </p>
       </div>
     </main>
   );
