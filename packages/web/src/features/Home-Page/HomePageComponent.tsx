@@ -48,7 +48,7 @@ export default function HomePageComponent() {
         </Head>
         <div className="flex justify-center py-7 min-h-full">
           <div className=" w-full flex justify-center">
-            <div className="xl:max-w-[1000px] 2xl:max-w-[1250px] 3xl:max-w-[1700px] max-w-[1700px] w-full flex flex-col gap-4">
+            <div className="xl:max-w-[1000px] 2xl:max-w-[1250px] 3xl:max-w-[1700px] w-full flex flex-col gap-4">
               {/* <div className="w-full flex items-end justify-between">
                 <button
                   onClick={() => refetchData()}
