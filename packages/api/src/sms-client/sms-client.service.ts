@@ -11,7 +11,7 @@ export class SmsClientService {
     type?: string | null | undefined,
   ) {
     const encodedMessage = encodeURIComponent(message);
-    const content = message + '\n\n -From Bhutan Insurance Limited';
+    const content = encodedMessage + '\n\n -From Bhutan Insurance Limited';
     const uuid = crypto.randomUUID();
     const recipientNumber = to.startsWith('975') ? to : '975' + to;
     const extractedNumber = recipientNumber.substring(
