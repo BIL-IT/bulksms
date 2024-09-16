@@ -10,7 +10,7 @@ export class SmsClientService {
     partyCode?: string | null | undefined,
     type?: string | null | undefined,
   ) {
-    const encodedMessage = encodeURI(message);
+    const encodedMessage = encodeURIComponent(message);
     const content = message + '\n\n -From Bhutan Insurance Limited';
     const uuid = crypto.randomUUID();
     const recipientNumber = to.startsWith('975') ? to : '975' + to;

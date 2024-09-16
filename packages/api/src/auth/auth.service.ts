@@ -155,4 +155,20 @@ export class AuthService {
 
     return token;
   }
+
+  public async getTestToken(email: string) {
+    const token = await this.assignTokenTest(email);
+
+    return token;
+  }
+
+  async assignTokenTest(email: string): Promise<string> {
+    const payload = {
+      sub: email,
+    };
+
+    const token = await this.jwtService.signAsync(payload);
+
+    return token;
+  }
 }
