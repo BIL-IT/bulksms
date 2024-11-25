@@ -74,7 +74,7 @@ export default function GenerateReportComponent() {
     tempLink.href = csvURL;
     tempLink.setAttribute(
       "download",
-      `BIL-SMS-REPORT-${new Date().toLocaleString("sv").split(" ").join("@")}.csv`
+      `BIL-SMS-REPORT-${new Date().toLocaleString("sv").split(" ").join("@")}.csv`,
     );
     tempLink.click();
   }
@@ -113,7 +113,7 @@ export default function GenerateReportComponent() {
                       variant={"outline"}
                       className={cn(
                         "w-full max-w-[280px] justify-start text-left font-normal",
-                        !getValues("startDate") && "text-muted-foreground"
+                        !getValues("startDate") && "text-muted-foreground",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -148,7 +148,7 @@ export default function GenerateReportComponent() {
                       variant={"outline"}
                       className={cn(
                         "w-[280px] justify-start text-left font-normal",
-                        !getValues("startDate") && "text-muted-foreground"
+                        !getValues("startDate") && "text-muted-foreground",
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />

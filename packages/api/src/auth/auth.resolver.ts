@@ -103,4 +103,10 @@ export class AuthResolver {
       };
     }
   }
+
+  @Mutation(() => String)
+  async getToken(@Args('email') email: string) {
+    const token = await this.authService.getTestToken(email);
+    return token;
+  }
 }

@@ -9,6 +9,7 @@ import { z } from "zod";
 import { DataTableToolbar } from "@/components/DataTable/data-table-toolbar";
 import { dummy_messages } from "@/lib/data";
 import dummy_cols from "@/lib/dummyColumns";
+import { EyeIcon } from "lucide-react";
 
 export type Test = {
   name: string;
@@ -51,9 +52,10 @@ export default function HomePageComponent() {
         <Head>
           <title>BIL SMS-SERVER</title>
         </Head>
+        <form onClick={() => {}}></form>
         <div className="flex justify-center py-7 min-h-full">
           <div className=" w-full flex justify-center">
-            <div className="xl:max-w-[1000px] 2xl:max-w-[1250px] 3xl:max-w-[1700px] max-w-[1700px] w-full flex flex-col gap-4">
+            <div className="xl:max-w-[1000px] 2xl:max-w-[1250px] 3xl:max-w-[1700px] w-full flex flex-col gap-4">
               {/* <div className="w-full flex items-end justify-between">
                 <button
                   onClick={() => refetchData()}
@@ -77,7 +79,7 @@ export default function HomePageComponent() {
                           prev.phone.includes(searchField) ||
                           prev.content
                             .toLowerCase()
-                            .includes(searchField.toLowerCase())
+                            .includes(searchField.toLowerCase()),
                       )
                         .filter((prev) => {
                           if (!fromDate) return true;

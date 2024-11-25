@@ -152,7 +152,7 @@ export default function LoginPageComponent() {
               come back!
             </p>
             <Link
-              href={"https://172.16.16.108:2001"}
+              href={`https://${window.location.hostname}:2001`}
               target="_blank"
               className=""
             >
