@@ -10,6 +10,13 @@ import { DataTableToolbar } from "@/components/DataTable/data-table-toolbar";
 import { dummy_messages } from "@/lib/data";
 import dummy_cols from "@/lib/dummyColumns";
 
+export type Test = {
+  name: string;
+  type: string;
+  hi: string;
+}
+
+
 export default function HomePageComponent() {
   const router = useRouter();
 
