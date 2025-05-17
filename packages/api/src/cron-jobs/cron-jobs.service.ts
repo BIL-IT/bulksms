@@ -36,6 +36,8 @@ const LOAN_ACKNOWLEDGEMENT_API =
 const LOAN_REMINDER_API =
   'https://172.16.16.148/sms/loan_repayment_reminder_sms.php';
 
+const DIVIDEND_API = 'https://172.16.16.148/sms/dividend_sms.php';
+
 @Injectable()
 export class CronJobsService implements OnModuleInit {
   constructor(
@@ -214,6 +216,39 @@ export class CronJobsService implements OnModuleInit {
   })
   async scheduledLoanAcknowledgement() {
     const res = await fetch(LOAN_ACKNOWLEDGEMENT_API, {
+      mode: 'no-cors',
+    });
+    const data = (await res.json()) as Loan[];
+    // const data = testData;
+
+    data.forEach((datum) => {
+      datum.phone_no.split('/').forEach(async (phone_no) => {
+        if (phone_no) {
+          // const messageSent = await this.smsClientService.sendMessage(
+          //   phone_no,
+          //   datum.message,
+          // );
+          // if (!messageSent) throw new Error('Unable to send message');
+
+          await this.smsClientService.sendMessage(
+            phone_no,
+            datum.message,
+            'BIL',
+            '',
+            '',
+            'Loan',
+          );
+        }
+      });
+    });
+  }
+
+  @Cron('0 18 * * *', {
+    name: 'DIVIDEND',
+    timeZone: 'Asia/Thimphu',
+  })
+  async scheduledDividendMessage() {
+    const res = await fetch(DIVIDEND_API, {
       mode: 'no-cors',
     });
     const data = (await res.json()) as Loan[];
